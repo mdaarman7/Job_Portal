@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Container, Box, Typography, Button, TextField } from "@mui/material";
+import { login } from "../util/api";
 import { useRouter } from "next/navigation"; // For navigation
 
 export default function LoginForm() {
@@ -31,7 +32,7 @@ export default function LoginForm() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     let hasError = false;
@@ -53,13 +54,15 @@ export default function LoginForm() {
     } else if (alphabetOnlyRegex.test(formData.username)) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        username: "Username cannot contain only alphabets. Please include numbers or symbols.",
+        username:
+          "Username cannot contain only alphabets. Please include numbers or symbols.",
       }));
       hasError = true;
     } else if (!usernameRegex.test(formData.username)) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        username: "Username can only contain alphabets, numbers, and symbols (@, #, _, -).",
+        username:
+          "Username can only contain alphabets, numbers, and symbols (@, #, _, -).",
       }));
       hasError = true;
     }
@@ -73,7 +76,8 @@ export default function LoginForm() {
     } else if (!passwordRegex.test(formData.password)) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        password: "Password must be at least 8 characters long, include a number, and a special character.",
+        password:
+          "Password must be at least 8 characters long, include a number, and a special character.",
       }));
       hasError = true;
     }
@@ -81,6 +85,14 @@ export default function LoginForm() {
     if (hasError) {
       return; // Prevent form submission if there are validation errors
     }
+    // If validation passes, proceed with login
+    console.log("Login Data:", loginData);
+    const response = await login (loginData);
+    console.log(response);
+    if(response.success){
+      router.push("/recruiterform")
+    }
+    
 
     // Placeholder form submission logic
     alert("Logged in successfully!");

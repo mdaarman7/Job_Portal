@@ -13,6 +13,7 @@ import {
 import { Business } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 
+
 export default function LandingPage() {
   const [searchQuery, setSearchQuery] = useState(""); // State for search input
   const [jobListings, setJobListings] = useState([
