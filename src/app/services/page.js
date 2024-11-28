@@ -1,15 +1,18 @@
-"use client"; // Ensure the component is client-side only
+"use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import {
   Container,
   Box,
   Typography,
-  Button,
-  TextField,
   Grid,
+  Button,
+  Modal,
+  Fade,
+  Backdrop,
 } from "@mui/material";
+import { useRouter } from "next/navigation";
 import {
   Business,
   Phone,
@@ -17,40 +20,31 @@ import {
   Facebook,
   Instagram,
   Twitter,
-} from "@mui/icons-material";import { useRouter } from "next/navigation";
-
-export default function LandingPage() {
-  const [searchQuery, setSearchQuery] = useState(""); // State for search input
-  const [jobListings, setJobListings] = useState([
-    { id: 1, title: "Frontend Developer", company: "TechCorp", location: "New York" },
-    { id: 2, title: "Backend Developer", company: "DevSolutions", location: "San Francisco" },
-    { id: 3, title: "Full Stack Developer", company: "WebInnovators", location: "Austin" },
-    { id: 4, title: "UI/UX Designer", company: "DesignPros", location: "Seattle" },
-    { id: 5, title: "Data Scientist", company: "DataWizards", location: "Chicago" },
-    { id: 6, title: "Product Manager", company: "InnovateHub", location: "Boston" },
-  ]);
-  const [isClient, setIsClient] = useState(false); // State to check if on client-side
-  const router = useRouter(); // For navigation
+} from "@mui/icons-material";
+export default function Services() {
+  const [isClient, setIsClient] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [serviceDetails, setServiceDetails] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     setIsClient(true); // Ensure client-side rendering
   }, []);
 
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
-  const handleSearch = () => {
-    console.log("Searching for:", searchQuery);
-  };
-
   const handleNavigation = (page) => {
     if (page === "home") {
-      router.refresh(); // Reload the current page
+      router.push("/"); // Redirect to homepage
     } else {
       router.push(`/${page}`); // Navigate to other pages
     }
   };
+
+  const handleOpen = (service) => {
+    setServiceDetails(service); // Set service details dynamically
+    setOpen(true);
+  };
+
+  const handleClose = () => setOpen(false);
 
   if (!isClient) {
     return null; // Prevent rendering on the server-side
@@ -59,12 +53,12 @@ export default function LandingPage() {
   return (
     <>
       <Head>
-        <title>Welcome to HireFlow - Freelancer/Recruiter</title>
+        <title>Services - HireFlow</title>
       </Head>
 
       <div style={{ minHeight: "100vh", padding: "20px" }}>
         {/* Top Navigation */}
-        <Box padding="10px" color="#000" bgcolor="rgb(32 35 42)">
+        <Box padding="10px" color="#000" bgcolor="#f5f5f5">
           <Container
             maxWidth="lg"
             style={{
@@ -76,14 +70,17 @@ export default function LandingPage() {
             {/* Left: HireFlow Icon and Text */}
             <Box display="flex" alignItems="center">
               <Business style={{ marginRight: "10px", fontSize: "40px" }} />
-              <Typography variant="h6" style={{ fontWeight: "bold", fontSize: "24px" }}>
+              <Typography
+                variant="h6"
+                style={{ fontWeight: "bold", fontSize: "24px" }}
+              >
                 HireFlow
               </Typography>
             </Box>
 
             {/* Center: Menu bar */}
             <Box display="flex" justifyContent="center" gap="10px" flexGrow={1}>
-              {["home", "about", "contact", "services"].map((page) => (
+              {["home", "about", "services", "contact"].map((page) => (
                 <Box
                   key={page}
                   sx={{
@@ -129,69 +126,144 @@ export default function LandingPage() {
           </Container>
         </Box>
 
-        {/* Search Section */}
-        <Container
-          maxWidth="md"
-          style={{ marginTop: "20px", textAlign: "center" }}
-        >
-          <Typography variant="h4" gutterBottom>
-            Find Your Dream Job
-          </Typography>
-          <Box display="flex" justifyContent="center" alignItems="center">
-            <TextField
-              label="Search for jobs"
-              variant="outlined"
-              value={searchQuery}
-              onChange={handleSearchChange}
-              style={{ marginRight: "10px", flex: 1 }}
-            />
-            <Button variant="contained" color="primary" onClick={handleSearch}>
-              Search
-            </Button>
-          </Box>
-        </Container>
-
-        {/* Job Listings */}
+        {/* Services Page Content */}
         <Container maxWidth="lg" style={{ marginTop: "40px" }}>
+          <Typography variant="h3" gutterBottom align="center">
+            Our Services
+          </Typography>
+
+          <Typography variant="h5" paragraph align="center">
+            HireFlow offers a range of services designed to make the hiring
+            process easier for both job seekers and employers. Explore our
+            services below:
+          </Typography>
+
+          {/* Services List */}
           <Grid container spacing={4}>
-            {jobListings.map((job) => (
-              <Grid item xs={12} sm={6} md={4} key={job.id}>
+            {[
+              {
+                title: "Job Listings",
+                description:
+                  "Post and browse job listings to find your next perfect role or ideal candidate. Our platform connects employers with job seekers easily.",
+                imageUrl: "/images/services/JobListing.jpg", // Placeholder image
+              },
+              {
+                title: "Advanced Filters",
+                description:
+                  "Our advanced search filters make it easy for both job seekers and recruiters to find the best matches quickly and efficiently.",
+                imageUrl: "/images/services/AdvanceFilter.jpg", // Placeholder image
+              },
+              {
+                title: "Resume Building",
+                description:
+                  "Take advantage of our resume building tools to create a standout resume that will help you land your dream job.",
+                imageUrl: "/images/services/ResumeBuilding.jpg", // Placeholder image
+              },
+              {
+                title: "Interview Preparation",
+                description:
+                  "Access mock interviews, resources, and tips to help you prepare for interviews and increase your chances of success.",
+                imageUrl: "/images/services/InterviewPreparation.png", // Placeholder image
+              },
+              {
+                title: "Job Alerts",
+                description:
+                  "Stay updated on the latest job opportunities through customizable job alerts sent directly to your inbox.",
+                imageUrl: "/images/services/JobAlert.jpg", // Placeholder image
+              },
+              {
+                title: "Recruiter Dashboard",
+                description:
+                  "Access a user-friendly dashboard to manage job posts, track candidates, and streamline your hiring process.",
+                imageUrl: "/images/services/RecruiterDashboard.png", // Placeholder image
+              },
+            ].map((service, index) => (
+              <Grid item xs={12} sm={6} md={4} key={index}>
                 <Box
-                  sx={{
-                    bgcolor: "#f5f5f5",
+                  style={{
                     padding: "20px",
+                    border: "1px solid #ddd",
                     borderRadius: "8px",
                     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                    height: "200px",
-                    transition: "all 0.3s ease-in-out",
-                    cursor: "pointer",
-                    "&:hover": {
-                      bgcolor: "#e0f7fa", // Change background color on hover
-                      transform: "scale(1.05)", // Slightly enlarge the box
-                      boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)", // Add deeper shadow
-                    },
+                    textAlign: "center",
+                    backgroundImage: `url(${service.imageUrl})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    height: "275px",
+                    position: "relative",
+                    color: "white",
                   }}
                 >
-                  <Typography variant="h6">{job.title}</Typography>
-                  <Typography variant="body1" style={{ marginTop: "10px" }}>
-                    {job.company}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    {job.location}
-                  </Typography>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    style={{ marginTop: "15px" }}
-                    fullWidth
+                  <Box
+                    style={{
+                      position: "absolute",
+                      bottom: "0px",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      backgroundColor: "rgba(0, 0, 0, 0.5)",
+                      padding: "10px 20px",
+                      borderRadius: "5px",
+                      marginBottom: "15px",
+                      width: "90%",
+                    }}
                   >
-                    Apply Now
-                  </Button>
+                    <Typography variant="h6" style={{ fontWeight: "bold" }}>
+                      {service.title}
+                    </Typography>
+                    <Typography variant="body2">
+                      {service.description}
+                    </Typography>
+                    <Button
+                      variant="outlined"
+                      onClick={() => handleOpen(service)}
+                      style={{ marginTop: "10px" }}
+                    >
+                      Learn More
+                    </Button>
+                  </Box>
                 </Box>
               </Grid>
             ))}
           </Grid>
         </Container>
+
+        {/* Modal for Service Details */}
+        <Modal
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                bgcolor: "background.paper",
+                boxShadow: 24,
+                p: 4,
+                width: "80%",
+                maxWidth: "600px",
+                borderRadius: "8px",
+              }}
+            >
+              <Typography variant="h5" gutterBottom>
+                {serviceDetails?.title}
+              </Typography>
+              <Typography variant="body1" paragraph>
+                {serviceDetails?.description}
+              </Typography>
+              <Button variant="contained" onClick={handleClose}>
+                Close
+              </Button>
+            </Box>
+          </Fade>
+        </Modal>
 
         {/* Footer Section */}
         <Box
@@ -265,7 +337,10 @@ export default function LandingPage() {
                     href="https://facebook.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: "#ffffff", margin: "10px 10px 10px -260px" }} // Removed left margin
+                    style={{
+                      color: "#ffffff",
+                      margin: "10px 10px 10px -260px",
+                    }} // Removed left margin
                   >
                     <Facebook />
                   </a>
@@ -288,7 +363,12 @@ export default function LandingPage() {
                 </Box>
               </Grid>
             </Grid>
-            <Box mt="20px" textAlign="center" borderTop="1px solid #444" pt="10px">
+            <Box
+              mt="20px"
+              textAlign="center"
+              borderTop="1px solid #444"
+              pt="10px"
+            >
               <Typography variant="body2">
                 © {new Date().getFullYear()} HireFlow. All rights reserved.
               </Typography>

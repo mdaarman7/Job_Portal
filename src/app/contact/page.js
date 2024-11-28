@@ -1,4 +1,4 @@
-"use client"; // Ensure the component is client-side only
+"use client";
 
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
@@ -6,10 +6,11 @@ import {
   Container,
   Box,
   Typography,
-  Button,
   TextField,
+  Button,
   Grid,
 } from "@mui/material";
+import { useRouter } from "next/navigation";
 import {
   Business,
   Phone,
@@ -17,39 +18,40 @@ import {
   Facebook,
   Instagram,
   Twitter,
-} from "@mui/icons-material";import { useRouter } from "next/navigation";
-
-export default function LandingPage() {
-  const [searchQuery, setSearchQuery] = useState(""); // State for search input
-  const [jobListings, setJobListings] = useState([
-    { id: 1, title: "Frontend Developer", company: "TechCorp", location: "New York" },
-    { id: 2, title: "Backend Developer", company: "DevSolutions", location: "San Francisco" },
-    { id: 3, title: "Full Stack Developer", company: "WebInnovators", location: "Austin" },
-    { id: 4, title: "UI/UX Designer", company: "DesignPros", location: "Seattle" },
-    { id: 5, title: "Data Scientist", company: "DataWizards", location: "Chicago" },
-    { id: 6, title: "Product Manager", company: "InnovateHub", location: "Boston" },
-  ]);
-  const [isClient, setIsClient] = useState(false); // State to check if on client-side
-  const router = useRouter(); // For navigation
+} from "@mui/icons-material";
+export default function ContactUs() {
+  const [isClient, setIsClient] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const router = useRouter();
 
   useEffect(() => {
     setIsClient(true); // Ensure client-side rendering
   }, []);
 
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
-  const handleSearch = () => {
-    console.log("Searching for:", searchQuery);
-  };
-
   const handleNavigation = (page) => {
     if (page === "home") {
-      router.refresh(); // Reload the current page
+      router.push("/"); // Redirect to homepage
     } else {
       router.push(`/${page}`); // Navigate to other pages
     }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("Message sent! We will get back to you shortly.");
+    setFormData({ name: "", email: "", message: "" }); // Clear the form
   };
 
   if (!isClient) {
@@ -59,12 +61,12 @@ export default function LandingPage() {
   return (
     <>
       <Head>
-        <title>Welcome to HireFlow - Freelancer/Recruiter</title>
+        <title>Contact Us - HireFlow</title>
       </Head>
 
       <div style={{ minHeight: "100vh", padding: "20px" }}>
         {/* Top Navigation */}
-        <Box padding="10px" color="#000" bgcolor="rgb(32 35 42)">
+        <Box padding="10px" color="#000" bgcolor="#f5f5f5">
           <Container
             maxWidth="lg"
             style={{
@@ -76,14 +78,17 @@ export default function LandingPage() {
             {/* Left: HireFlow Icon and Text */}
             <Box display="flex" alignItems="center">
               <Business style={{ marginRight: "10px", fontSize: "40px" }} />
-              <Typography variant="h6" style={{ fontWeight: "bold", fontSize: "24px" }}>
+              <Typography
+                variant="h6"
+                style={{ fontWeight: "bold", fontSize: "24px" }}
+              >
                 HireFlow
               </Typography>
             </Box>
 
             {/* Center: Menu bar */}
             <Box display="flex" justifyContent="center" gap="10px" flexGrow={1}>
-              {["home", "about", "contact", "services"].map((page) => (
+              {["home", "about", "services", "contact"].map((page) => (
                 <Box
                   key={page}
                   sx={{
@@ -129,67 +134,93 @@ export default function LandingPage() {
           </Container>
         </Box>
 
-        {/* Search Section */}
-        <Container
-          maxWidth="md"
-          style={{ marginTop: "20px", textAlign: "center" }}
-        >
-          <Typography variant="h4" gutterBottom>
-            Find Your Dream Job
-          </Typography>
-          <Box display="flex" justifyContent="center" alignItems="center">
-            <TextField
-              label="Search for jobs"
-              variant="outlined"
-              value={searchQuery}
-              onChange={handleSearchChange}
-              style={{ marginRight: "10px", flex: 1 }}
-            />
-            <Button variant="contained" color="primary" onClick={handleSearch}>
-              Search
-            </Button>
-          </Box>
-        </Container>
-
-        {/* Job Listings */}
+        {/* Contact Us Page Content */}
         <Container maxWidth="lg" style={{ marginTop: "40px" }}>
+          <Typography variant="h3" gutterBottom align="center">
+            Contact Us
+          </Typography>
+
+          <Typography variant="h5" paragraph align="center">
+            We would love to hear from you! Please fill out the form below and
+            we will get in touch with you soon.
+          </Typography>
+
+          {/* Contact Form and Google Map */}
           <Grid container spacing={4}>
-            {jobListings.map((job) => (
-              <Grid item xs={12} sm={6} md={4} key={job.id}>
-                <Box
-                  sx={{
-                    bgcolor: "#f5f5f5",
-                    padding: "20px",
-                    borderRadius: "8px",
-                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                    height: "200px",
-                    transition: "all 0.3s ease-in-out",
-                    cursor: "pointer",
-                    "&:hover": {
-                      bgcolor: "#e0f7fa", // Change background color on hover
-                      transform: "scale(1.05)", // Slightly enlarge the box
-                      boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)", // Add deeper shadow
-                    },
-                  }}
-                >
-                  <Typography variant="h6">{job.title}</Typography>
-                  <Typography variant="body1" style={{ marginTop: "10px" }}>
-                    {job.company}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    {job.location}
-                  </Typography>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    style={{ marginTop: "15px" }}
+            <Grid item xs={12} md={6}>
+              <form onSubmit={handleSubmit}>
+                <Box>
+                  <TextField
                     fullWidth
-                  >
-                    Apply Now
+                    label="Your Name"
+                    variant="outlined"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    margin="normal"
+                  />
+                </Box>
+                <Box>
+                  <TextField
+                    fullWidth
+                    label="Your Email"
+                    variant="outlined"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    type="email"
+                    margin="normal"
+                  />
+                </Box>
+                <Box>
+                  <TextField
+                    fullWidth
+                    label="Your Message"
+                    variant="outlined"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    multiline
+                    rows={4}
+                    margin="normal"
+                  />
+                </Box>
+                <Box mt={2}>
+                  <Button type="submit" variant="contained" color="primary">
+                    Send Message
                   </Button>
                 </Box>
-              </Grid>
-            ))}
+              </form>
+            </Grid>
+
+            {/* Google Map Section */}
+            <Grid item xs={12} md={6}>
+              <Box
+                style={{
+                  height: "100%",
+                  overflow: "hidden",
+                  position: "relative",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                  borderRadius: "8px",
+                }}
+              >
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14422.183155801225!2d85.2917!3d27.7099!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e6a575abf3656b%3A0x432e0a0b07949862!2sKamalpokhari%20Marg%2C%20Kathmandu%2044600%2C%20Nepal!5e0!3m2!1sen!2snp!4v1690911283727!5m2!1sen!2snp"
+                  width="100%"
+                  height="400"
+                  style={{
+                    border: "0",
+                    borderRadius: "8px",
+                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                  }}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </Box>
+            </Grid>
           </Grid>
         </Container>
 
@@ -265,7 +296,10 @@ export default function LandingPage() {
                     href="https://facebook.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: "#ffffff", margin: "10px 10px 10px -260px" }} // Removed left margin
+                    style={{
+                      color: "#ffffff",
+                      margin: "10px 10px 10px -260px",
+                    }} // Removed left margin
                   >
                     <Facebook />
                   </a>
@@ -288,7 +322,12 @@ export default function LandingPage() {
                 </Box>
               </Grid>
             </Grid>
-            <Box mt="20px" textAlign="center" borderTop="1px solid #444" pt="10px">
+            <Box
+              mt="20px"
+              textAlign="center"
+              borderTop="1px solid #444"
+              pt="10px"
+            >
               <Typography variant="body2">
                 © {new Date().getFullYear()} HireFlow. All rights reserved.
               </Typography>
