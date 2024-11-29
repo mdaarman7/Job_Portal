@@ -74,13 +74,15 @@ export default function FreelancerForm() {
     } else if (alphabetOnlyRegex.test(formData.username)) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        username: "Username cannot contain only alphabets. Please include numbers or symbols.",
+        username:
+          "Username cannot contain only alphabets. Please include numbers or symbols.",
       }));
       hasError = true;
     } else if (!usernameRegex.test(formData.username)) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        username: "Username can only contain alphabets, numbers, and symbols (@, #, _, -).",
+        username:
+          "Username can only contain alphabets, numbers, and symbols (@, #, _, -).",
       }));
       hasError = true;
     }
@@ -114,8 +116,8 @@ export default function FreelancerForm() {
 
   return (
     <Container maxWidth="sm" style={{ minHeight: "93.5vh", marginTop: "50px" }}>
-      <Box bgcolor="#000" padding="20px" borderRadius="8px">
-        <Typography variant="h4" style={{ color: "#fff", textAlign: "center" }}>
+      <Box bgcolor="rgb(4 33 42)" padding="20px" borderRadius="8px">
+        <Typography variant="h4" style={{ color: "#0adaf1eb", textAlign: "center" }}>
           Apply as a Freelancer
         </Typography>
 
@@ -130,7 +132,18 @@ export default function FreelancerForm() {
             fullWidth
             value={formData.name}
             onChange={handleInputChange}
-            style={{ marginBottom: "20px" }}
+            style={{
+              backgroundColor: "#07313a",
+              flex: 1,
+              color: "#0adaf1eb",
+              marginBottom: "20px",
+            }}
+            InputProps={{
+              style: { color: "#0adaf1eb" },
+            }}
+            InputLabelProps={{
+              style: { color: "#0adaf1eb" },
+            }}
             required
             error={!!errors.name}
             helperText={errors.name}
@@ -143,7 +156,18 @@ export default function FreelancerForm() {
             fullWidth
             value={formData.email}
             onChange={handleInputChange}
-            style={{ marginBottom: "20px" }}
+            style={{
+              backgroundColor: "#07313a",
+              flex: 1,
+              color: "#0adaf1eb",
+              marginBottom: "20px",
+            }}
+            InputProps={{
+              style: { color: "#0adaf1eb" },
+            }}
+            InputLabelProps={{
+              style: { color: "#0adaf1eb" },
+            }}
             required
             error={!!errors.email}
             helperText={errors.email}
@@ -155,7 +179,18 @@ export default function FreelancerForm() {
             fullWidth
             value={formData.username}
             onChange={handleInputChange}
-            style={{ marginBottom: "20px" }}
+            style={{
+              backgroundColor: "#07313a",
+              flex: 1,
+              color: "#0adaf1eb",
+              marginBottom: "20px",
+            }}
+            InputProps={{
+              style: { color: "#0adaf1eb" },
+            }}
+            InputLabelProps={{
+              style: { color: "#0adaf1eb" },
+            }}
             required
             error={!!errors.username}
             helperText={errors.username}
@@ -168,7 +203,18 @@ export default function FreelancerForm() {
             fullWidth
             value={formData.password}
             onChange={handleInputChange}
-            style={{ marginBottom: "20px" }}
+            style={{
+              backgroundColor: "#07313a",
+              flex: 1,
+              color: "#0adaf1eb",
+              marginBottom: "20px",
+            }}
+            InputProps={{
+              style: { color: "#0adaf1eb" },
+            }}
+            InputLabelProps={{
+              style: { color: "#0adaf1eb" },
+            }}
             required
             error={!!errors.password}
             helperText={errors.password}

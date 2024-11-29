@@ -17,17 +17,48 @@ import {
   Facebook,
   Instagram,
   Twitter,
-} from "@mui/icons-material";import { useRouter } from "next/navigation";
+} from "@mui/icons-material";
+import { useRouter } from "next/navigation";
 
 export default function LandingPage() {
   const [searchQuery, setSearchQuery] = useState(""); // State for search input
   const [jobListings, setJobListings] = useState([
-    { id: 1, title: "Frontend Developer", company: "TechCorp", location: "New York" },
-    { id: 2, title: "Backend Developer", company: "DevSolutions", location: "San Francisco" },
-    { id: 3, title: "Full Stack Developer", company: "WebInnovators", location: "Austin" },
-    { id: 4, title: "UI/UX Designer", company: "DesignPros", location: "Seattle" },
-    { id: 5, title: "Data Scientist", company: "DataWizards", location: "Chicago" },
-    { id: 6, title: "Product Manager", company: "InnovateHub", location: "Boston" },
+    {
+      id: 1,
+      title: "Frontend Developer",
+      company: "TechCorp",
+      location: "New York",
+    },
+    {
+      id: 2,
+      title: "Backend Developer",
+      company: "DevSolutions",
+      location: "San Francisco",
+    },
+    {
+      id: 3,
+      title: "Full Stack Developer",
+      company: "WebInnovators",
+      location: "Austin",
+    },
+    {
+      id: 4,
+      title: "UI/UX Designer",
+      company: "DesignPros",
+      location: "Seattle",
+    },
+    {
+      id: 5,
+      title: "Data Scientist",
+      company: "DataWizards",
+      location: "Chicago",
+    },
+    {
+      id: 6,
+      title: "Product Manager",
+      company: "InnovateHub",
+      location: "Boston",
+    },
   ]);
   const [isClient, setIsClient] = useState(false); // State to check if on client-side
   const router = useRouter(); // For navigation
@@ -62,9 +93,16 @@ export default function LandingPage() {
         <title>Welcome to HireFlow - Freelancer/Recruiter</title>
       </Head>
 
-      <div style={{ minHeight: "100vh", padding: "20px" }}>
+      <div
+        style={{
+          minHeight: "100vh",
+          backgroundColor: "#00283c",
+          color: "#0adaf1eb",
+          padding: "20px",
+        }}
+      >
         {/* Top Navigation */}
-        <Box padding="10px" color="#000" bgcolor="rgb(32 35 42)">
+        <Box padding="10px" bgcolor="#02394a">
           <Container
             maxWidth="lg"
             style={{
@@ -75,8 +113,17 @@ export default function LandingPage() {
           >
             {/* Left: HireFlow Icon and Text */}
             <Box display="flex" alignItems="center">
-              <Business style={{ marginRight: "10px", fontSize: "40px" }} />
-              <Typography variant="h6" style={{ fontWeight: "bold", fontSize: "24px" }}>
+              <Business
+                style={{
+                  marginRight: "10px",
+                  fontSize: "60px",
+                  color: "#0adaf1eb",
+                }}
+              />
+              <Typography
+                variant="h6"
+                style={{ fontWeight: "bold", fontSize: "34px" }}
+              >
                 HireFlow
               </Typography>
             </Box>
@@ -93,12 +140,12 @@ export default function LandingPage() {
                     textAlign: "center",
                     fontWeight: "bold",
                     fontSize: "16px",
-                    bgcolor: "#ffffff",
+                    bgcolor: "rgb(4 33 42)",
+                    color: "#0adaf1eb",
                     transition: "all 0.3s ease-in-out",
                     "&:hover": {
-                      bgcolor: "#3f51b5",
+                      bgcolor: "rgb(23 124 175)",
                       color: "#ffffff",
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                     },
                   }}
                   onClick={() => handleNavigation(page)}
@@ -113,6 +160,7 @@ export default function LandingPage() {
               <Button
                 color="primary"
                 variant="outlined"
+                style={{ borderColor: "#0adaf1eb", color: "#0adaf1eb" }}
                 onClick={() => handleNavigation("loginform")}
               >
                 Login
@@ -120,7 +168,11 @@ export default function LandingPage() {
               <Button
                 color="primary"
                 variant="contained"
-                style={{ marginLeft: "10px" }}
+                style={{
+                  backgroundColor: "rgb(23 124 175)",
+                  color: "#ffffff",
+                  marginLeft: "10px",
+                }}
                 onClick={() => handleNavigation("signup")}
               >
                 Signup
@@ -143,9 +195,24 @@ export default function LandingPage() {
               variant="outlined"
               value={searchQuery}
               onChange={handleSearchChange}
-              style={{ marginRight: "10px", flex: 1 }}
+              style={{
+                backgroundColor: "#07313a",
+                marginRight: "10px",
+                flex: 1,
+                color: "#0adaf1eb",
+              }}
+              InputProps={{
+                style: { color: "#0adaf1eb" },
+              }}
+              InputLabelProps={{
+                style: { color: "#0adaf1eb" },
+              }}
             />
-            <Button variant="contained" color="primary" onClick={handleSearch}>
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "rgb(23 124 175)", color: "#ffffff" }}
+              onClick={handleSearch}
+            >
               Search
             </Button>
           </Box>
@@ -158,7 +225,7 @@ export default function LandingPage() {
               <Grid item xs={12} sm={6} md={4} key={job.id}>
                 <Box
                   sx={{
-                    bgcolor: "#f5f5f5",
+                    bgcolor: "#07313a",
                     padding: "20px",
                     borderRadius: "8px",
                     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
@@ -166,9 +233,10 @@ export default function LandingPage() {
                     transition: "all 0.3s ease-in-out",
                     cursor: "pointer",
                     "&:hover": {
-                      bgcolor: "#e0f7fa", // Change background color on hover
-                      transform: "scale(1.05)", // Slightly enlarge the box
-                      boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)", // Add deeper shadow
+                      bgcolor: "rgb(9 204 227 / 48%)",
+                      transform: "scale(1.05)",
+                      boxShadow: "rgb(0 0 0) 0px 8px 16px",
+                      color: "white",
                     },
                   }}
                 >
@@ -181,8 +249,11 @@ export default function LandingPage() {
                   </Typography>
                   <Button
                     variant="contained"
-                    color="secondary"
-                    style={{ marginTop: "15px" }}
+                    style={{
+                      backgroundColor: "rgb(23 124 175)",
+                      color: "#ffffff",
+                      marginTop: "15px",
+                    }}
                     fullWidth
                   >
                     Apply Now
@@ -196,8 +267,8 @@ export default function LandingPage() {
         {/* Footer Section */}
         <Box
           component="footer"
-          bgcolor="#282c34"
-          color="#ffffff"
+          bgcolor="#02394a"
+          color="white"
           padding="40px 0"
           mt="40px"
         >
@@ -208,7 +279,12 @@ export default function LandingPage() {
                 <Typography variant="h6" style={{ fontWeight: "bold" }}>
                   About HireFlow
                 </Typography>
-                <Typography variant="body2" color="inherit" mt="10px">
+                <Typography
+                  variant="body2"
+                  color="inherit"
+                  mt="10px"
+                  style={{ textAlign: "justify" }}
+                >
                   HireFlow is your go-to platform for connecting top talent with
                   world-class companies. We simplify hiring for recruiters and
                   job seekers.
@@ -244,18 +320,18 @@ export default function LandingPage() {
               {/* Column 3: Contact Information */}
               <Grid item xs={12} sm={4}>
                 <Typography variant="h6" style={{ fontWeight: "bold" }}>
-                  FireFlow.com.no
+                  HireFlow.com.np
                 </Typography>
                 <Box display="flex" alignItems="center" mt="10px">
                   <Phone style={{ marginRight: "10px" }} />
                   <Typography variant="body2" color="inherit">
-                    +123 456 7890
+                    +977 9818014356
                   </Typography>
                 </Box>
                 <Box display="flex" alignItems="center" mt="10px">
                   <Email style={{ marginRight: "10px" }} />
                   <Typography variant="body2" color="inherit">
-                    contact@fireflow.com.no
+                    hireflow143@gmail.com
                   </Typography>
                 </Box>
 
@@ -265,7 +341,10 @@ export default function LandingPage() {
                     href="https://facebook.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: "#ffffff", margin: "10px 10px 10px -260px" }} // Removed left margin
+                    style={{
+                      color: "#ffffff",
+                      margin: "10px 10px 10px -260px",
+                    }} // Removed left margin
                   >
                     <Facebook />
                   </a>
@@ -288,7 +367,12 @@ export default function LandingPage() {
                 </Box>
               </Grid>
             </Grid>
-            <Box mt="20px" textAlign="center" borderTop="1px solid #444" pt="10px">
+            <Box
+              mt="20px"
+              textAlign="center"
+              borderTop="1px solid #444"
+              pt="10px"
+            >
               <Typography variant="body2">
                 © {new Date().getFullYear()} HireFlow. All rights reserved.
               </Typography>

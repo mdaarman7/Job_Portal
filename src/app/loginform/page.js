@@ -103,6 +103,7 @@ export default function LoginForm() {
   };
 
   return (
+
     <Container
       maxWidth="xs" // Compact width for the login form
       style={{
@@ -114,7 +115,7 @@ export default function LoginForm() {
       }}
     >
       <Box
-        bgcolor="#000"
+        bgcolor="rgb(4 33 42)"
         padding="30px"
         borderRadius="8px"
         boxShadow="0 4px 10px rgba(0, 0, 0, 0.3)"
@@ -122,7 +123,7 @@ export default function LoginForm() {
       >
         <Typography
           variant="h4"
-          style={{ color: "#fff", textAlign: "center", marginBottom: "20px" }}
+          style={{ color: "#0adaf1eb", textAlign: "center", marginBottom: "20px" }}
         >
           Login
         </Typography>
@@ -136,7 +137,19 @@ export default function LoginForm() {
             fullWidth
             value={formData.username}
             onChange={handleInputChange}
-            style={{ marginBottom: "20px" }}
+            style={{
+              backgroundColor: "#07313a",
+              marginRight: "10px",
+              flex: 1,
+              color: "#0adaf1eb",
+              marginBottom: "10px",
+            }}
+            InputProps={{
+              style: { color: "#0adaf1eb" },
+            }}
+            InputLabelProps={{
+              style: { color: "#0adaf1eb" },
+            }}
             required
             error={!!errors.username}
             helperText={errors.username}
@@ -151,8 +164,20 @@ export default function LoginForm() {
             fullWidth
             value={formData.password}
             onChange={handleInputChange}
-            style={{ marginBottom: "20px" }}
-            required
+            style={{
+              backgroundColor: "#07313a",
+              marginRight: "10px",
+              flex: 1,
+              color: "#0adaf1eb",
+              marginBottom: "10px",
+              borderRadius: "5px"
+            }}
+            InputProps={{
+              style: { color: "#0adaf1eb" },
+            }}
+            InputLabelProps={{
+              style: { color: "#0adaf1eb" },
+            }}            required
             error={!!errors.password}
             helperText={errors.password}
           />

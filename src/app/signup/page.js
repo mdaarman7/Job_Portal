@@ -50,8 +50,8 @@ export default function Signup() {
             display="flex"
             justifyContent="center"
             alignItems="center"
-            bgcolor="#000"
-            color="#fff"
+            bgcolor="black"
+            color="#0adaf1eb"
             padding="20px"
             borderRadius="8px"
             mb={4}
@@ -63,12 +63,12 @@ export default function Signup() {
           </Box>
 
           {/* Second Box: Main Content with Role Selection (Black Background) */}
-          <Box bgcolor="#000" padding="20px" borderRadius="8px">
-            <Typography variant="h4" gutterBottom style={{ color: "#fff" }}>
+          <Box bgcolor="#000" color= "#0adaf1eb" padding="20px" borderRadius="8px">
+            <Typography variant="h4" gutterBottom  >
               Welcome to HireFlow
             </Typography>
 
-            <Typography variant="subtitle1" gutterBottom style={{ color: "#fff" }}>
+            <Typography variant="subtitle1" gutterBottom  >
               Are you a Freelancer or a Recruiter?
             </Typography>
 

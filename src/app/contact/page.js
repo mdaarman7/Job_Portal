@@ -63,10 +63,16 @@ export default function ContactUs() {
       <Head>
         <title>Contact Us - HireFlow</title>
       </Head>
-
-      <div style={{ minHeight: "100vh", padding: "20px" }}>
+      <div
+        style={{
+          minHeight: "100vh",
+          backgroundColor: "#00283c",
+          color: "#0adaf1eb",
+          padding: "20px",
+        }}
+      >
         {/* Top Navigation */}
-        <Box padding="10px" color="#000" bgcolor="#f5f5f5">
+        <Box padding="10px" bgcolor="#02394a">
           <Container
             maxWidth="lg"
             style={{
@@ -77,10 +83,16 @@ export default function ContactUs() {
           >
             {/* Left: HireFlow Icon and Text */}
             <Box display="flex" alignItems="center">
-              <Business style={{ marginRight: "10px", fontSize: "40px" }} />
+              <Business
+                style={{
+                  marginRight: "10px",
+                  fontSize: "60px",
+                  color: "#0adaf1eb",
+                }}
+              />
               <Typography
                 variant="h6"
-                style={{ fontWeight: "bold", fontSize: "24px" }}
+                style={{ fontWeight: "bold", fontSize: "34px" }}
               >
                 HireFlow
               </Typography>
@@ -88,7 +100,7 @@ export default function ContactUs() {
 
             {/* Center: Menu bar */}
             <Box display="flex" justifyContent="center" gap="10px" flexGrow={1}>
-              {["home", "about", "services", "contact"].map((page) => (
+              {["home", "about", "contact", "services"].map((page) => (
                 <Box
                   key={page}
                   sx={{
@@ -98,12 +110,12 @@ export default function ContactUs() {
                     textAlign: "center",
                     fontWeight: "bold",
                     fontSize: "16px",
-                    bgcolor: "#ffffff",
+                    bgcolor: "rgb(4 33 42)",
+                    color: "#0adaf1eb",
                     transition: "all 0.3s ease-in-out",
                     "&:hover": {
-                      bgcolor: "#3f51b5",
+                      bgcolor: "rgb(23 124 175)",
                       color: "#ffffff",
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                     },
                   }}
                   onClick={() => handleNavigation(page)}
@@ -118,6 +130,7 @@ export default function ContactUs() {
               <Button
                 color="primary"
                 variant="outlined"
+                style={{ borderColor: "#0adaf1eb", color: "#0adaf1eb" }}
                 onClick={() => handleNavigation("loginform")}
               >
                 Login
@@ -125,7 +138,11 @@ export default function ContactUs() {
               <Button
                 color="primary"
                 variant="contained"
-                style={{ marginLeft: "10px" }}
+                style={{
+                  backgroundColor: "rgb(23 124 175)",
+                  color: "#ffffff",
+                  marginLeft: "10px",
+                }}
                 onClick={() => handleNavigation("signup")}
               >
                 Signup
@@ -140,7 +157,11 @@ export default function ContactUs() {
             Contact Us
           </Typography>
 
-          <Typography variant="h5" paragraph align="center">
+          <Typography
+            variant="h5"
+            align="center"
+            style={{ color: "white", marginBottom: "20px" }}
+          >
             We would love to hear from you! Please fill out the form below and
             we will get in touch with you soon.
           </Typography>
@@ -159,6 +180,18 @@ export default function ContactUs() {
                     onChange={handleChange}
                     required
                     margin="normal"
+                    style={{
+                      backgroundColor: "#07313a",
+                      marginRight: "10px",
+                      flex: 1,
+                      color: "#0adaf1eb",
+                    }}
+                    InputProps={{
+                      style: { color: "#0adaf1eb" },
+                    }}
+                    InputLabelProps={{
+                      style: { color: "#0adaf1eb" },
+                    }}
                   />
                 </Box>
                 <Box>
@@ -172,6 +205,18 @@ export default function ContactUs() {
                     required
                     type="email"
                     margin="normal"
+                    style={{
+                      backgroundColor: "#07313a",
+                      marginRight: "10px",
+                      flex: 1,
+                      color: "#0adaf1eb",
+                    }}
+                    InputProps={{
+                      style: { color: "#0adaf1eb" },
+                    }}
+                    InputLabelProps={{
+                      style: { color: "#0adaf1eb" },
+                    }}
                   />
                 </Box>
                 <Box>
@@ -186,6 +231,18 @@ export default function ContactUs() {
                     multiline
                     rows={4}
                     margin="normal"
+                    style={{
+                      backgroundColor: "#07313a",
+                      marginRight: "10px",
+                      flex: 1,
+                      color: "#0adaf1eb",
+                    }}
+                    InputProps={{
+                      style: { color: "#0adaf1eb" },
+                    }}
+                    InputLabelProps={{
+                      style: { color: "#0adaf1eb" },
+                    }}
                   />
                 </Box>
                 <Box mt={2}>
@@ -227,8 +284,8 @@ export default function ContactUs() {
         {/* Footer Section */}
         <Box
           component="footer"
-          bgcolor="#282c34"
-          color="#ffffff"
+          bgcolor="#02394a"
+          color="white"
           padding="40px 0"
           mt="40px"
         >
@@ -239,7 +296,12 @@ export default function ContactUs() {
                 <Typography variant="h6" style={{ fontWeight: "bold" }}>
                   About HireFlow
                 </Typography>
-                <Typography variant="body2" color="inherit" mt="10px">
+                <Typography
+                  variant="body2"
+                  color="inherit"
+                  mt="10px"
+                  style={{ textAlign: "justify" }}
+                >
                   HireFlow is your go-to platform for connecting top talent with
                   world-class companies. We simplify hiring for recruiters and
                   job seekers.
@@ -275,18 +337,18 @@ export default function ContactUs() {
               {/* Column 3: Contact Information */}
               <Grid item xs={12} sm={4}>
                 <Typography variant="h6" style={{ fontWeight: "bold" }}>
-                  FireFlow.com.no
+                  HireFlow.com.np
                 </Typography>
                 <Box display="flex" alignItems="center" mt="10px">
                   <Phone style={{ marginRight: "10px" }} />
                   <Typography variant="body2" color="inherit">
-                    +123 456 7890
+                    +977 9818014356
                   </Typography>
                 </Box>
                 <Box display="flex" alignItems="center" mt="10px">
                   <Email style={{ marginRight: "10px" }} />
                   <Typography variant="body2" color="inherit">
-                    contact@fireflow.com.no
+                    hireflow143@gmail.com
                   </Typography>
                 </Box>
 

@@ -52,9 +52,16 @@ export default function AboutUs() {
         <title>About Us - HireFlow</title>
       </Head>
 
-      <div style={{ minHeight: "100vh", padding: "20px" }}>
+      <div
+        style={{
+          minHeight: "100vh",
+          backgroundColor: "#00283c",
+          color: "#0adaf1eb",
+          padding: "20px",
+        }}
+      >
         {/* Top Navigation */}
-        <Box padding="10px" color="#000" bgcolor="#f5f5f5">
+        <Box padding="10px" bgcolor="#02394a">
           <Container
             maxWidth="lg"
             style={{
@@ -65,10 +72,16 @@ export default function AboutUs() {
           >
             {/* Left: HireFlow Icon and Text */}
             <Box display="flex" alignItems="center">
-              <Business style={{ marginRight: "10px", fontSize: "40px" }} />
+              <Business
+                style={{
+                  marginRight: "10px",
+                  fontSize: "60px",
+                  color: "#0adaf1eb",
+                }}
+              />
               <Typography
                 variant="h6"
-                style={{ fontWeight: "bold", fontSize: "24px" }}
+                style={{ fontWeight: "bold", fontSize: "34px" }}
               >
                 HireFlow
               </Typography>
@@ -86,12 +99,12 @@ export default function AboutUs() {
                     textAlign: "center",
                     fontWeight: "bold",
                     fontSize: "16px",
-                    bgcolor: "#ffffff",
+                    bgcolor: "rgb(4 33 42)",
+                    color: "#0adaf1eb",
                     transition: "all 0.3s ease-in-out",
                     "&:hover": {
-                      bgcolor: "#3f51b5",
+                      bgcolor: "rgb(23 124 175)",
                       color: "#ffffff",
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                     },
                   }}
                   onClick={() => handleNavigation(page)}
@@ -106,6 +119,7 @@ export default function AboutUs() {
               <Button
                 color="primary"
                 variant="outlined"
+                style={{ borderColor: "#0adaf1eb", color: "#0adaf1eb" }}
                 onClick={() => handleNavigation("loginform")}
               >
                 Login
@@ -113,7 +127,11 @@ export default function AboutUs() {
               <Button
                 color="primary"
                 variant="contained"
-                style={{ marginLeft: "10px" }}
+                style={{
+                  backgroundColor: "rgb(23 124 175)",
+                  color: "#ffffff",
+                  marginLeft: "10px",
+                }}
                 onClick={() => handleNavigation("signup")}
               >
                 Signup
@@ -124,7 +142,11 @@ export default function AboutUs() {
 
         {/* About Us Content */}
         <Container maxWidth="lg" style={{ marginTop: "40px" }}>
-          <Typography variant="h3" gutterBottom align="center">
+          <Typography
+            variant="h3"
+            gutterBottom
+            align="center"
+          >
             About Us
           </Typography>
 
@@ -132,21 +154,34 @@ export default function AboutUs() {
           <Grid container spacing={4} alignItems="center">
             {/* Text Content */}
             <Grid item xs={12} md={6}>
-              <Typography variant="body1" align="justify" paragraph>
+              <Typography
+                variant="body1"
+                align="justify"
+                paragraph
+                style={{ color: "#0adaf1eb" }}
+              >
                 Welcome to HireFlow, your ultimate platform for connecting
                 top-tier talent with world-class companies. Whether you're a
                 recruiter looking for exceptional candidates or a job seeker
                 ready to find your dream job, we provide tools and resources to
                 make hiring simple and effective.
               </Typography>
-              <Typography variant="body1" align="justify" paragraph>
+              <Typography
+                variant="body1"
+                align="justify"
+                paragraph
+                style={{ color: "#0adaf1eb" }}
+              >
                 At HireFlow, we understand the challenges of modern hiring.
                 That's why we've built an intuitive, user-friendly platform that
                 bridges the gap between opportunity and success.
               </Typography>
               <Button
                 variant="contained"
-                color="primary"
+                style={{
+                  backgroundColor: "#07313a",
+                  color: "#0adaf1eb",
+                }}
                 size="large"
                 onClick={handleOpen} // Opens the modal with service details
               >
@@ -191,7 +226,7 @@ export default function AboutUs() {
                 <Typography variant="h6" align="center">
                   Empowering Job Seekers
                 </Typography>
-                <Typography variant="body2" align="center">
+                <Typography variant="body2" align="center" color="white">
                   We aim to empower job seekers with the tools they need to
                   succeed in the modern job market.
                 </Typography>
@@ -213,7 +248,7 @@ export default function AboutUs() {
                 <Typography variant="h6" align="center">
                   Simplifying Hiring
                 </Typography>
-                <Typography variant="body2" align="center">
+                <Typography variant="body2" align="center" color="white">
                   We strive to make the hiring process seamless for recruiters
                   and companies.
                 </Typography>
@@ -235,7 +270,7 @@ export default function AboutUs() {
                 <Typography variant="h6" align="center">
                   Bridging Gaps
                 </Typography>
-                <Typography variant="body2" align="center">
+                <Typography variant="body2" align="center" color="white">
                   Connecting talent and opportunity for mutual growth and
                   success.
                 </Typography>
@@ -247,8 +282,8 @@ export default function AboutUs() {
         {/* Footer Section */}
         <Box
           component="footer"
-          bgcolor="#282c34"
-          color="#ffffff"
+          bgcolor="#02394a"
+          color="white"
           padding="40px 0"
           mt="40px"
         >
@@ -259,7 +294,7 @@ export default function AboutUs() {
                 <Typography variant="h6" style={{ fontWeight: "bold" }}>
                   About HireFlow
                 </Typography>
-                <Typography variant="body2" color="inherit" mt="10px">
+                <Typography variant="body2" color="inherit" mt="10px" style={{textAlign: "justify"}}>
                   HireFlow is your go-to platform for connecting top talent with
                   world-class companies. We simplify hiring for recruiters and
                   job seekers.
@@ -295,18 +330,18 @@ export default function AboutUs() {
               {/* Column 3: Contact Information */}
               <Grid item xs={12} sm={4}>
                 <Typography variant="h6" style={{ fontWeight: "bold" }}>
-                  FireFlow.com.no
+                  HireFlow.com.np
                 </Typography>
                 <Box display="flex" alignItems="center" mt="10px">
                   <Phone style={{ marginRight: "10px" }} />
                   <Typography variant="body2" color="inherit">
-                    +123 456 7890
+                    +977 9818014356
                   </Typography>
                 </Box>
                 <Box display="flex" alignItems="center" mt="10px">
                   <Email style={{ marginRight: "10px" }} />
                   <Typography variant="body2" color="inherit">
-                    contact@fireflow.com.no
+                  hireflow143@gmail.com
                   </Typography>
                 </Box>
 

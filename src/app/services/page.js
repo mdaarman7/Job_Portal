@@ -56,9 +56,16 @@ export default function Services() {
         <title>Services - HireFlow</title>
       </Head>
 
-      <div style={{ minHeight: "100vh", padding: "20px" }}>
+      <div
+        style={{
+          minHeight: "100vh",
+          backgroundColor: "#00283c",
+          color: "#0adaf1eb",
+          padding: "20px",
+        }}
+      >
         {/* Top Navigation */}
-        <Box padding="10px" color="#000" bgcolor="#f5f5f5">
+        <Box padding="10px" bgcolor="#02394a">
           <Container
             maxWidth="lg"
             style={{
@@ -69,10 +76,16 @@ export default function Services() {
           >
             {/* Left: HireFlow Icon and Text */}
             <Box display="flex" alignItems="center">
-              <Business style={{ marginRight: "10px", fontSize: "40px" }} />
+              <Business
+                style={{
+                  marginRight: "10px",
+                  fontSize: "60px",
+                  color: "#0adaf1eb",
+                }}
+              />
               <Typography
                 variant="h6"
-                style={{ fontWeight: "bold", fontSize: "24px" }}
+                style={{ fontWeight: "bold", fontSize: "34px" }}
               >
                 HireFlow
               </Typography>
@@ -80,7 +93,7 @@ export default function Services() {
 
             {/* Center: Menu bar */}
             <Box display="flex" justifyContent="center" gap="10px" flexGrow={1}>
-              {["home", "about", "services", "contact"].map((page) => (
+              {["home", "about", "contact", "services"].map((page) => (
                 <Box
                   key={page}
                   sx={{
@@ -90,12 +103,12 @@ export default function Services() {
                     textAlign: "center",
                     fontWeight: "bold",
                     fontSize: "16px",
-                    bgcolor: "#ffffff",
+                    bgcolor: "rgb(4 33 42)",
+                    color: "#0adaf1eb",
                     transition: "all 0.3s ease-in-out",
                     "&:hover": {
-                      bgcolor: "#3f51b5",
+                      bgcolor: "rgb(23 124 175)",
                       color: "#ffffff",
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                     },
                   }}
                   onClick={() => handleNavigation(page)}
@@ -110,6 +123,7 @@ export default function Services() {
               <Button
                 color="primary"
                 variant="outlined"
+                style={{ borderColor: "#0adaf1eb", color: "#0adaf1eb" }}
                 onClick={() => handleNavigation("loginform")}
               >
                 Login
@@ -117,7 +131,11 @@ export default function Services() {
               <Button
                 color="primary"
                 variant="contained"
-                style={{ marginLeft: "10px" }}
+                style={{
+                  backgroundColor: "rgb(23 124 175)",
+                  color: "#ffffff",
+                  marginLeft: "10px",
+                }}
                 onClick={() => handleNavigation("signup")}
               >
                 Signup
@@ -132,7 +150,7 @@ export default function Services() {
             Our Services
           </Typography>
 
-          <Typography variant="h5" paragraph align="center">
+          <Typography variant="h5" paragraph align="center" color="white">
             HireFlow offers a range of services designed to make the hiring
             process easier for both job seekers and employers. Explore our
             services below:
@@ -207,7 +225,11 @@ export default function Services() {
                       width: "90%",
                     }}
                   >
-                    <Typography variant="h6" style={{ fontWeight: "bold" }}>
+                    <Typography
+                      variant="h6"
+                      color="#1bfdb4"
+                      style={{ fontWeight: "bold" }}
+                    >
                       {service.title}
                     </Typography>
                     <Typography variant="body2">
@@ -216,7 +238,15 @@ export default function Services() {
                     <Button
                       variant="outlined"
                       onClick={() => handleOpen(service)}
-                      style={{ marginTop: "10px" }}
+                      style={{ marginTop: "10px" }} // Keep style for specific inline styles
+                      sx={{
+                        backgroundColor: "rgb(3, 26, 34)", // Apply bg color here
+                        "&:hover": {
+                          transform: "scale(1.05)",
+                          boxShadow: "rgb(0 0 0) 0px 8px 16px",
+                          color: "white",
+                        },
+                      }}
                     >
                       Learn More
                     </Button>
@@ -268,8 +298,8 @@ export default function Services() {
         {/* Footer Section */}
         <Box
           component="footer"
-          bgcolor="#282c34"
-          color="#ffffff"
+          bgcolor="#02394a"
+          color="white"
           padding="40px 0"
           mt="40px"
         >
@@ -280,7 +310,12 @@ export default function Services() {
                 <Typography variant="h6" style={{ fontWeight: "bold" }}>
                   About HireFlow
                 </Typography>
-                <Typography variant="body2" color="inherit" mt="10px">
+                <Typography
+                  variant="body2"
+                  color="inherit"
+                  mt="10px"
+                  style={{ textAlign: "justify" }}
+                >
                   HireFlow is your go-to platform for connecting top talent with
                   world-class companies. We simplify hiring for recruiters and
                   job seekers.
@@ -316,18 +351,18 @@ export default function Services() {
               {/* Column 3: Contact Information */}
               <Grid item xs={12} sm={4}>
                 <Typography variant="h6" style={{ fontWeight: "bold" }}>
-                  FireFlow.com.no
+                  HireFlow.com.np
                 </Typography>
                 <Box display="flex" alignItems="center" mt="10px">
                   <Phone style={{ marginRight: "10px" }} />
                   <Typography variant="body2" color="inherit">
-                    +123 456 7890
+                    +977 9818014356
                   </Typography>
                 </Box>
                 <Box display="flex" alignItems="center" mt="10px">
                   <Email style={{ marginRight: "10px" }} />
                   <Typography variant="body2" color="inherit">
-                    contact@fireflow.com.no
+                    hireflow143@gmail.com
                   </Typography>
                 </Box>
 

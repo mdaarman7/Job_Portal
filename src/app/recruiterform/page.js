@@ -55,13 +55,15 @@ export default function RecruiterForm() {
     } else if (alphabetOnlyRegex.test(formData.username)) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        username: "Username cannot contain only alphabets. Include numbers or symbols.",
+        username:
+          "Username cannot contain only alphabets. Include numbers or symbols.",
       }));
       hasError = true;
     } else if (!usernameRegex.test(formData.username)) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        username: "Username can only contain alphabets, numbers, and symbols (@, #, _, -).",
+        username:
+          "Username can only contain alphabets, numbers, and symbols (@, #, _, -).",
       }));
       hasError = true;
     }
@@ -101,13 +103,17 @@ export default function RecruiterForm() {
     } else if (!passwordRegex.test(formData.password)) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        password: "Password must be at least 8 characters long, include a number, and a symbol.",
+        password:
+          "Password must be at least 8 characters long, include a number, and a symbol.",
       }));
       hasError = true;
     }
 
     // Website URL Validation (only if input is provided)
-    if (formData.websiteUrl && !/^https?:\/\/[^\s$.?#].[^\s]*$/i.test(formData.websiteUrl)) {
+    if (
+      formData.websiteUrl &&
+      !/^https?:\/\/[^\s$.?#].[^\s]*$/i.test(formData.websiteUrl)
+    ) {
       setErrors((prevErrors) => ({
         ...prevErrors,
         websiteUrl: "Enter a valid URL (e.g., https://example.com).",
@@ -139,7 +145,7 @@ export default function RecruiterForm() {
       }}
     >
       <Box
-        bgcolor="#000"
+        bgcolor="rgb(4 33 42)"
         padding="30px"
         borderRadius="8px"
         boxShadow="0 4px 10px rgba(0, 0, 0, 0.3)"
@@ -147,7 +153,11 @@ export default function RecruiterForm() {
       >
         <Typography
           variant="h4"
-          style={{ color: "#fff", textAlign: "center", marginBottom: "20px" }}
+          style={{
+            color: "#0adaf1eb",
+            textAlign: "center",
+            marginBottom: "20px",
+          }}
         >
           Recruiter Sign-Up
         </Typography>
@@ -161,7 +171,18 @@ export default function RecruiterForm() {
             fullWidth
             value={formData.username}
             onChange={handleInputChange}
-            style={{ marginBottom: "20px" }}
+            style={{
+              backgroundColor: "#07313a",
+              flex: 1,
+              color: "#0adaf1eb",
+              marginBottom: "20px",
+            }}
+            InputProps={{
+              style: { color: "#0adaf1eb" },
+            }}
+            InputLabelProps={{
+              style: { color: "#0adaf1eb" },
+            }}
             required
             error={!!errors.username}
             helperText={errors.username}
@@ -175,7 +196,18 @@ export default function RecruiterForm() {
             fullWidth
             value={formData.companyName}
             onChange={handleInputChange}
-            style={{ marginBottom: "20px" }}
+            style={{
+              backgroundColor: "#07313a",
+              flex: 1,
+              color: "#0adaf1eb",
+              marginBottom: "20px",
+            }}
+            InputProps={{
+              style: { color: "#0adaf1eb" },
+            }}
+            InputLabelProps={{
+              style: { color: "#0adaf1eb" },
+            }}
             required
             error={!!errors.companyName}
             helperText={errors.companyName}
@@ -190,7 +222,18 @@ export default function RecruiterForm() {
             fullWidth
             value={formData.email}
             onChange={handleInputChange}
-            style={{ marginBottom: "20px" }}
+            style={{
+              backgroundColor: "#07313a",
+              flex: 1,
+              color: "#0adaf1eb",
+              marginBottom: "20px",
+            }}
+            InputProps={{
+              style: { color: "#0adaf1eb" },
+            }}
+            InputLabelProps={{
+              style: { color: "#0adaf1eb" },
+            }}
             required
             error={!!errors.email}
             helperText={errors.email}
@@ -205,7 +248,18 @@ export default function RecruiterForm() {
             fullWidth
             value={formData.password}
             onChange={handleInputChange}
-            style={{ marginBottom: "20px" }}
+            style={{
+              backgroundColor: "#07313a",
+              flex: 1,
+              color: "#0adaf1eb",
+              marginBottom: "20px",
+            }}
+            InputProps={{
+              style: { color: "#0adaf1eb" },
+            }}
+            InputLabelProps={{
+              style: { color: "#0adaf1eb" },
+            }}
             required
             error={!!errors.password}
             helperText={errors.password}
@@ -219,7 +273,18 @@ export default function RecruiterForm() {
             fullWidth
             value={formData.websiteUrl}
             onChange={handleInputChange}
-            style={{ marginBottom: "20px" }}
+            style={{
+              backgroundColor: "#07313a",
+              flex: 1,
+              color: "#0adaf1eb",
+              marginBottom: "20px",
+            }}
+            InputProps={{
+              style: { color: "#0adaf1eb" },
+            }}
+            InputLabelProps={{
+              style: { color: "#0adaf1eb" },
+            }}
             error={!!errors.websiteUrl}
             helperText={errors.websiteUrl} // Validation is optional
           />
