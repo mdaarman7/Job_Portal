@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Container, Box, Typography, Button, TextField } from "@mui/material";
 import { useRouter } from "next/navigation"; // For navigation
+import { addRecruiterInformation } from "../util/api";
 
 export default function RecruiterForm() {
   const router = useRouter(); // Hook for navigation
@@ -37,7 +38,7 @@ export default function RecruiterForm() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     let hasError = false;
@@ -125,8 +126,13 @@ export default function RecruiterForm() {
       return; // Prevent form submission if there are validation errors
     }
 
-    // Placeholder form submission logic
-    alert("Recruiter account created successfully!");
+    const response = await addRecruiterInformation(formData);
+    console.log(response);
+    if(response){
+      alert("Recruiter account created successfully!");
+      router.push("/loginform");
+    }
+    
   };
 
   const handleNavigateToLogin = () => {
@@ -163,31 +169,7 @@ export default function RecruiterForm() {
         </Typography>
 
         <form onSubmit={handleSubmit} style={{ textAlign: "left" }}>
-          {/* Username Field */}
-          <TextField
-            label="Username"
-            name="username"
-            variant="outlined"
-            fullWidth
-            value={formData.username}
-            onChange={handleInputChange}
-            style={{
-              backgroundColor: "#07313a",
-              flex: 1,
-              color: "#0adaf1eb",
-              marginBottom: "20px",
-            }}
-            InputProps={{
-              style: { color: "#0adaf1eb" },
-            }}
-            InputLabelProps={{
-              style: { color: "#0adaf1eb" },
-            }}
-            required
-            error={!!errors.username}
-            helperText={errors.username}
-          />
-
+          
           {/* Company Name Field */}
           <TextField
             label="Company Name"
@@ -237,6 +219,32 @@ export default function RecruiterForm() {
             required
             error={!!errors.email}
             helperText={errors.email}
+          />
+
+
+            {/* Username Field */}
+          <TextField
+            label="Username"
+            name="username"
+            variant="outlined"
+            fullWidth
+            value={formData.username}
+            onChange={handleInputChange}
+            style={{
+              backgroundColor: "#07313a",
+              flex: 1,
+              color: "#0adaf1eb",
+              marginBottom: "20px",
+            }}
+            InputProps={{
+              style: { color: "#0adaf1eb" },
+            }}
+            InputLabelProps={{
+              style: { color: "#0adaf1eb" },
+            }}
+            required
+            error={!!errors.username}
+            helperText={errors.username}
           />
 
           {/* Password Field */}

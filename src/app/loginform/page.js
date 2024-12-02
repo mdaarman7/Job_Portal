@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Container, Box, Typography, Button, TextField } from "@mui/material";
-import { login } from "../util/api";
+import { login, loginForEmployee, loginForRecruiter } from "../util/api";
 import { useRouter } from "next/navigation"; // For navigation
 
 export default function LoginForm() {
@@ -86,16 +86,33 @@ export default function LoginForm() {
       return; // Prevent form submission if there are validation errors
     }
     // If validation passes, proceed with login
-    console.log("Login Data:", loginData);
-    const response = await login (loginData);
+    console.log("Login Data:", formData);
+    const response = await loginForRecruiter (formData);
     console.log(response);
     if(response.success){
+      alert("Logged in successfully!");
       router.push("/recruiterform")
     }
+   
+    else
+    {
+      const responseForEmployee = await loginForEmployee (formData);
+      console.log(responseForEmployee);
+      if(responseForEmployee.success){
+        alert("Logged in successfully!");
+        router.push("/homePageForFreelancer")
+      }
+      else
+      {
+        alert("Wrong Username or Password");
+        router.push("/signup");
+      }
+    }
+   
     
 
     // Placeholder form submission logic
-    alert("Logged in successfully!");
+    
   };
 
   const handleSignupNavigation = () => {

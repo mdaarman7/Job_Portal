@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Container, Box, Typography, Button, TextField } from "@mui/material";
 import { useRouter } from "next/navigation"; // Import router for navigation
+import { addEmployeeInformation } from "../util/api";
 
 export default function FreelancerForm() {
   const [formData, setFormData] = useState({
@@ -35,7 +36,7 @@ export default function FreelancerForm() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     // Validation regex patterns
@@ -106,6 +107,14 @@ export default function FreelancerForm() {
       return; // Prevent form submission if there are validation errors
     }
 
+    const response = await addEmployeeInformation(formData);
+    console.log(response);
+    if(response){
+      alert("Freelancer account created successfully!");
+      router.push("/loginform");
+    }
+
+    
     // Form submission logic (alert for now)
     alert("Form submitted: " + JSON.stringify(formData));
   };
