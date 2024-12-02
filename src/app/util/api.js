@@ -45,3 +45,8 @@ export async function addRecruiterInformation(data){
     console.log("Making api call");
     return await makeApiCall("/recruiter/add","POST",data);
 }
+
+export async function addContactUsInformtaion(data){
+    console.log("Making api call");
+    return await makeApiCall("/contact/add","POST",data);
+}

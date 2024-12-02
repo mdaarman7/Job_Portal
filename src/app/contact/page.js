@@ -19,6 +19,7 @@ import {
   Instagram,
   Twitter,
 } from "@mui/icons-material";
+import { addContactUsInformtaion } from "../util/api";
 export default function ContactUs() {
   const [isClient, setIsClient] = useState(false);
   const [formData, setFormData] = useState({
@@ -48,10 +49,17 @@ export default function ContactUs() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    alert("Message sent! We will get back to you shortly.");
-    setFormData({ name: "", email: "", message: "" }); // Clear the form
+
+    const response = await addContactUsInformtaion(formData);
+    console.log(response);
+    if(response){
+      alert("Message sent! We will get back to you shortly.");
+      setFormData({ name: "", email: "", message: "" }); // Clear the form
+    }
+   
+
   };
 
   if (!isClient) {
