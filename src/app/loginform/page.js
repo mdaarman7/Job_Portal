@@ -1,7 +1,7 @@
 "use client"; // Ensure the component is client-side
 
 import React, { useState } from "react";
-import { Container, Box, Typography, Button, TextField } from "@mui/material";
+import { Container, Box, Typography, Button, TextField, MenuItem } from "@mui/material";
 import { login, loginForEmployee, loginForRecruiter } from "../util/api";
 import { useRouter } from "next/navigation"; // For navigation
 
@@ -11,11 +11,13 @@ export default function LoginForm() {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
+    role: "",
   });
 
   const [errors, setErrors] = useState({
     username: "",
     password: "",
+    role: "",
   });
 
   const handleInputChange = (e) => {
@@ -87,27 +89,63 @@ export default function LoginForm() {
     }
     // If validation passes, proceed with login
     console.log("Login Data:", formData);
-    const response = await loginForRecruiter (formData);
-    console.log(response);
-    if(response.success){
-      alert("Logged in successfully!");
-      router.push("/recruiterform")
-    }
-   
-    else
-    {
-      const responseForEmployee = await loginForEmployee (formData);
-      console.log(responseForEmployee);
-      if(responseForEmployee.success){
-        alert("Logged in successfully!");
-        router.push("/homePageForFreelancer")
-      }
-      else
+
+      // if(formData.role === "Admin")
+      // {
+      //   const response = await loginForRecruiter (formData);
+      //   if(response.success){
+      //     alert("Logged in successfully!");
+      //     router.push("/recruiterform")
+      //   }
+      // }
+      if(formData.role === "Employee")
       {
-        alert("Wrong Username or Password");
-        router.push("/signup");
+        const responseForEmployee = await loginForEmployee (formData);
+        if(responseForEmployee.success){
+          alert("Logged in successfully!");
+          router.push("/homePageForFreelancer")
+        }
+        else
+        {
+          alert("Wrong Username or Password");
+          router.push("/signup");
+        }
       }
-    }
+
+      if(formData.role === "Recruiter")
+      {
+        const response = await loginForRecruiter (formData);
+        if(response.success){
+          alert("Logged in successfully!");
+          router.push("/recruiterform")
+        }
+        else
+        {
+          alert("Wrong Username or Password");
+          router.push("/signup");
+        }
+      }
+    
+
+    // if(response.success){
+    //   alert("Logged in successfully!");
+    //   router.push("/recruiterform")
+    // }
+   
+    // else
+    // {
+    //   const responseForEmployee = await loginForEmployee (formData);
+    //   console.log(responseForEmployee);
+    //   if(responseForEmployee.success){
+    //     alert("Logged in successfully!");
+    //     router.push("/homePageForFreelancer")
+    //   }
+    //   else
+    //   {
+    //     alert("Wrong Username or Password");
+    //     router.push("/signup");
+    //   }
+    // }
    
     
 
@@ -186,7 +224,7 @@ export default function LoginForm() {
               marginRight: "10px",
               flex: 1,
               color: "#0adaf1eb",
-              marginBottom: "10px",
+              marginBottom: "0",
               borderRadius: "5px"
             }}
             InputProps={{
@@ -198,6 +236,38 @@ export default function LoginForm() {
             error={!!errors.password}
             helperText={errors.password}
           />
+
+            {/* Selector*/}
+          <TextField
+                label="Role"
+                name="role"
+                value={formData.role}
+                onChange={handleInputChange}
+                fullWidth
+                margin="normal"
+                select
+                variant="outlined"
+                required
+                style={{
+                  backgroundColor: "#07313a",
+                  marginRight: "10px",
+                  flex: 1,
+                  color: "#0adaf1eb",
+                  marginBottom: "10px",
+                  borderRadius: "5px"
+                }}
+                InputProps={{
+                  style: { color: "#0adaf1eb" },
+                }}
+                InputLabelProps={{
+                  style: { color: "#0adaf1eb" },
+                }}           
+              >
+              <MenuItem value="Admin">Admin</MenuItem>
+              <MenuItem value="Employee">Employee</MenuItem>
+              <MenuItem value="Recruiter">Recruiter</MenuItem>
+              </TextField>
+              
 
           {/* Login Button */}
           <Box display="flex" justifyContent="flex-end" mt={2}>
