@@ -98,7 +98,7 @@ export default function LoginForm() {
       //     router.push("/recruiterform")
       //   }
       // }
-      if(formData.role === "Employee")
+      if(formData.role === "Freelancer")
       {
         const responseForEmployee = await loginForEmployee (formData);
         if(responseForEmployee.success){
@@ -263,8 +263,8 @@ export default function LoginForm() {
                   style: { color: "#0adaf1eb" },
                 }}           
               >
-              <MenuItem value="Admin">Admin</MenuItem>
-              <MenuItem value="Employee">Employee</MenuItem>
+
+              <MenuItem value="Freelancer">Freelancer</MenuItem>
               <MenuItem value="Recruiter">Recruiter</MenuItem>
               </TextField>
               
