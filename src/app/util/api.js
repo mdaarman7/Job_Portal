@@ -25,7 +25,23 @@ export async function makeApiCall (endpoint,method ="GET",body =null){
 export function getUsers(){
     return makeApiCall("/emp/list","GET");
 }
-export async function login (data){
+export async function loginForRecruiter (data){
+    console.log("Making api call");
+    return await makeApiCall("/auth_recruiter/add","POST",data);
+    
+} 
+export async function loginForEmployee (data){
     console.log("Making api call");
     return await makeApiCall("/auth/add","POST",data);
+    
 } 
+export async function addEmployeeInformation(data){
+    console.log("Making api call");
+    return await makeApiCall("/emp/add","POST",data);
+}
+
+
+export async function addRecruiterInformation(data){
+    console.log("Making api call");
+    return await makeApiCall("/recruiter/add","POST",data);
+}
