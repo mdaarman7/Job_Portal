@@ -45,12 +45,12 @@ export default function Signup() {
       
       <div style={{ minHeight: "100vh", padding: "20px" }}>
         <Container maxWidth="sm" style={{ textAlign: "center", marginTop: "50px" }}>
-          {/* First Box: HireFlow Header with Icon (Black Background) */}
+          {/* First Box: HireFlow Header with Icon  */}
           <Box
             display="flex"
             justifyContent="center"
             alignItems="center"
-            bgcolor="black"
+            bgcolor="rgb(3, 26, 34)"
             color="#0adaf1eb"
             padding="20px"
             borderRadius="8px"
@@ -62,8 +62,8 @@ export default function Signup() {
             </Typography>
           </Box>
 
-          {/* Second Box: Main Content with Role Selection (Black Background) */}
-          <Box bgcolor="#000" color= "#0adaf1eb" padding="20px" borderRadius="8px">
+          {/* Second Box: Main Content with Role Selection */}
+          <Box bgcolor="rgb(3, 26, 34)" color= "#0adaf1eb" padding="20px" borderRadius="8px">
             <Typography variant="h4" gutterBottom  >
               Welcome to HireFlow
             </Typography>
@@ -79,6 +79,7 @@ export default function Signup() {
                     variant={role === "freelancer" ? "contained" : "outlined"}
                     color="primary"
                     fullWidth
+                    bgcolor="black"
                     size="large"
                     startIcon={<Person />}
                     onClick={() => handleRoleSelection("freelancer")}
@@ -92,6 +93,7 @@ export default function Signup() {
                     variant={role === "client" ? "contained" : "outlined"}
                     color="secondary"
                     fullWidth
+                    bgcolor="black"
                     size="large"
                     startIcon={<Work />}
                     onClick={() => handleRoleSelection("client")}
@@ -114,7 +116,7 @@ export default function Signup() {
               >
                 <Button
                   variant="outlined"
-                  color="primary"
+                  color={role === "freelancer" ? "primary" : role === "client" ? "secondary" : "default"}                  
                   size="large"
                   fullWidth
                   onClick={handleNavigation} // Redirect to the appropriate form
