@@ -251,8 +251,10 @@ export default function LandingPage() {
                     },
                   }}
                 >
-                  <Typography variant="h6">{job.title}</Typography>
-                  <Typography variant="body2" style={{ marginTop: "10px" }}>
+                  <Typography variant="h5" textAlign={"center"}>
+                    {job.title}
+                  </Typography>
+                  {/* <Typography variant="body2" style={{ marginTop: "10px" }}>
                     Salary: {job.salary}
                   </Typography>
                   <Typography variant="body2">
@@ -260,7 +262,7 @@ export default function LandingPage() {
                   </Typography>
                   <Typography variant="body2">
                     Location: {job.location}
-                  </Typography>
+                  </Typography> */}
                 </Box>
               </Grid>
             ))}
@@ -306,12 +308,8 @@ export default function LandingPage() {
                         fontSize: "16px",
                       }}
                       onClick={() => handleNavigation(page)}
-                      onMouseEnter={(e) =>
-                        (e.target.style.color = "#a9a9a9")
-                      }
-                      onMouseLeave={(e) =>
-                        (e.target.style.color = "#ffffff")
-                      }
+                      onMouseEnter={(e) => (e.target.style.color = "#a9a9a9")}
+                      onMouseLeave={(e) => (e.target.style.color = "#ffffff")}
                     >
                       {page.charAt(0).toUpperCase() + page.slice(1)}
                     </Typography>
