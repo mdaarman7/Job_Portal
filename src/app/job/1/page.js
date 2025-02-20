@@ -42,24 +42,20 @@ export default function JobTable() {
     website: "",
   });
 
-  // Open modal & set job position in form
   const handleApplyClick = (job) => {
     setSelectedJob(job);
     setFormData({ ...formData, position: job.title });
   };
 
-  // Close modal
   const handleCloseModal = () => {
     setSelectedJob(null);
   };
 
-  // Handle form inputs
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle form submit
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Application Submitted:", formData);
@@ -68,9 +64,7 @@ export default function JobTable() {
   };
 
   return (
-
     <Container style={{ marginTop: "50px" }}>
-      {/* Job Listings Table */}
       <Typography variant="h3" gutterBottom textAlign="center">
         Frontend Developer Job Listings
       </Typography>
@@ -103,7 +97,6 @@ export default function JobTable() {
         </Table>
       </TableContainer>
 
-      {/* Apply Form Modal */}
       <Modal open={Boolean(selectedJob)} onClose={handleCloseModal}>
         <Box
           sx={{
@@ -115,85 +108,26 @@ export default function JobTable() {
             p: 4,
             borderRadius: "10px",
             boxShadow: 24,
-            width: "1400px", // Increased width for the modal
-            height: "750px", // Increased height for the modal
-            display: "flex", // Flexbox layout to separate form and image
+            width: "1400px",
+            height: "750px",
+            display: "flex",
             flexDirection: "row",
           }}
         >
-          {/* Left side with image/graphics */}
-          <Box
-            sx={{
-              width: "50%",
-              height: "100%",
-              backgroundImage: "/images/ApplyForm.png", // Add your image URL here Errorrrrrr Image dekhayena
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              borderRadius: "10px",
-            }}
-          ></Box>
-
-          {/* Right side with form */}
-          <Box
-            sx={{
-              width: "50%",
-              height: "100%",
-              padding: "20px",
-              overflowY: "auto",
-              color: "#fff",
-              backgroundColor: "#07313a",
-              borderRadius: "10px",
-              boxSizing: "border-box",
-            }}
-          >
-            {/* Close Button */}
-            <IconButton
-              onClick={handleCloseModal}
-              sx={{
-                position: "absolute",
-                top: "10px",
-                right: "10px",
-                color: "#fff",
-              }}
-            >
+          <Box sx={{ width: "50%", height: "100%", backgroundSize: "cover", backgroundPosition: "center", borderRadius: "10px" }}></Box>
+          <Box sx={{ width: "50%", height: "100%", padding: "20px", overflowY: "auto", color: "#fff", backgroundColor: "#07313a", borderRadius: "10px", boxSizing: "border-box" }}>
+            <IconButton onClick={handleCloseModal} sx={{ position: "absolute", top: "10px", right: "10px", color: "#fff" }}>
               <CloseIcon />
             </IconButton>
-
             <Typography variant="h4" style={{ color: "#0adaf1eb", textAlign: "center", marginBottom: "20px" }}>
               Apply for {selectedJob?.title}
             </Typography>
-
             <form onSubmit={handleSubmit}>
-              {/* Job Position Field (Pre-filled) */}
-              <TextField
-                label="Job Position"
-                name="position"
-                variant="outlined"
-                fullWidth
-                value={formData.position}
-                onChange={handleInputChange}
-                sx={{ mb: 2, bgcolor: "#07313a", color: "#fff" }}
-                InputProps={{ style: { color: "#0adaf1eb" } }}
-                InputLabelProps={{ style: { color: "#0adaf1eb" } }}
-                disabled
-              />
-
-              {/* Other Input Fields */}
-              {["firstName", "lastName", "email", "address", "phone", "website"].map((field) => (
-                <TextField
-                  key={field}
-                  label={field.replace(/^\w/, (c) => c.toUpperCase())} // Capitalize first letter
-                  name={field}
-                  variant="outlined"
-                  fullWidth
-                  value={formData[field]}
-                  onChange={handleInputChange}
-                  sx={{ mb: 2, bgcolor: "#07313a", color: "#fff" }}
-                  InputProps={{ style: { color: "#0adaf1eb" } }}
-                  InputLabelProps={{ style: { color: "#0adaf1eb" } }}
-                />
+              <TextField label="Job Position" name="position" variant="outlined" fullWidth value={formData.position} onChange={handleInputChange} sx={{ mb: 2, bgcolor: "#07313a", color: "#fff" }} InputProps={{ style: { color: "#0adaf1eb" } }} InputLabelProps={{ style: { color: "#0adaf1eb" } }} disabled />
+              {["firstName", "lastName", "email", "address", "phone"].map((field) => (
+                <TextField key={field} label={field.replace(/^\w/, (c) => c.toUpperCase())} name={field} variant="outlined" fullWidth value={formData[field]} onChange={handleInputChange} required sx={{ mb: 2, bgcolor: "#07313a", color: "#fff" }} InputProps={{ style: { color: "#0adaf1eb" } }} InputLabelProps={{ style: { color: "#0adaf1eb" } }} />
               ))}
-
+              <TextField label="Website" name="website" variant="outlined" fullWidth value={formData.website} onChange={handleInputChange} sx={{ mb: 2, bgcolor: "#07313a", color: "#fff" }} InputProps={{ style: { color: "#0adaf1eb" } }} InputLabelProps={{ style: { color: "#0adaf1eb" } }} />
               <Button variant="contained" color="primary" fullWidth type="submit">
                 Submit Application
               </Button>
@@ -201,15 +135,9 @@ export default function JobTable() {
           </Box>
         </Box>
       </Modal>
-
-      {/* Back Button */}
       <Box display="flex" justifyContent="center" marginTop="20px">
-        <Button variant="contained" color="secondary" onClick={() => router.push("/")}>
-          Back to Home
-        </Button>
+        <Button variant="contained" color="secondary" onClick={() => router.push("/")}>Back to Home</Button>
       </Box>
     </Container>
-    
-    
   );
 }

@@ -80,3 +80,10 @@ export async function getJobDetails (){
     return await makeApiCall("/addjob/list","GET");
     
 } 
+
+
+export async function addApplyJobDetails(data){
+    console.log("Making api call");
+    return await makeApiCall("/apply/add","POST",data);
+    
+} 
