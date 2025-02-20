@@ -26,41 +26,50 @@ export default function LandingPage() {
     {
       id: 1,
       title: "Frontend Developer",
-      company: "TechCorp",
-      location: "New York",
+      salary: "$60,000 - $80,000",
+      experience: "2+ years",
+      location: "Remote",
     },
     {
       id: 2,
       title: "Backend Developer",
-      company: "DevSolutions",
+      salary: "$70,000 - $90,000",
+      experience: "3+ years",
       location: "San Francisco",
     },
     {
       id: 3,
       title: "Full Stack Developer",
-      company: "WebInnovators",
+      salary: "$80,000 - $100,000",
+      experience: "4+ years",
       location: "Austin",
     },
     {
       id: 4,
       title: "UI/UX Designer",
-      company: "DesignPros",
+      salary: "$50,000 - $70,000",
+      experience: "1+ years",
       location: "Seattle",
     },
     {
       id: 5,
       title: "Data Scientist",
-      company: "DataWizards",
+      salary: "$90,000 - $120,000",
+      experience: "5+ years",
       location: "Chicago",
     },
     {
       id: 6,
       title: "Product Manager",
-      company: "InnovateHub",
+      salary: "$100,000 - $130,000",
+      experience: "6+ years",
       location: "Boston",
     },
   ]);
   const [isClient, setIsClient] = useState(false); // State to check if on client-side
+  const [user, setUser] = useState({
+    username: "JohnDoe", // Simulating a logged-in user
+  }); // To store user data (if logged in)
   const router = useRouter(); // For navigation
 
   useEffect(() => {
@@ -77,10 +86,19 @@ export default function LandingPage() {
 
   const handleNavigation = (page) => {
     if (page === "home") {
-      router.refresh(); // Reload the current page
+      router.push("/"); // Navigate to the home page
     } else {
       router.push(`/${page}`); // Navigate to other pages
     }
+  };
+
+  const handleJobClick = (jobId) => {
+    router.push(`/job/${jobId}`); // Navigate to the job detail page
+  };
+
+  const handleLogout = () => {
+    setUser(null); // Reset user state to simulate logout
+    router.push("/"); // Redirect to home page after logout
   };
 
   if (!isClient) {
@@ -155,28 +173,46 @@ export default function LandingPage() {
               ))}
             </Box>
 
-            {/* Right: Login and Signup buttons */}
+            {/* Right: User Section */}
             <Box>
-              <Button
-                color="primary"
-                variant="outlined"
-                style={{ borderColor: "#0adaf1eb", color: "#0adaf1eb" }}
-                onClick={() => handleNavigation("loginform")}
-              >
-                Login
-              </Button>
-              <Button
-                color="primary"
-                variant="contained"
-                style={{
-                  backgroundColor: "rgb(23 124 175)",
-                  color: "#ffffff",
-                  marginLeft: "10px",
-                }}
-                onClick={() => handleNavigation("signup")}
-              >
-                Signup
-              </Button>
+              {user ? (
+                <Box display="flex" alignItems="center">
+                  <Typography variant="body1" style={{ color: "#0adaf1eb" }}>
+                    {user.username}
+                  </Typography>
+                  <Button
+                    color="primary"
+                    variant="outlined"
+                    style={{ borderColor: "#0adaf1eb", color: "#0adaf1eb", marginLeft: "10px" }}
+                    onClick={handleLogout}
+                  >
+                    Log Out
+                  </Button>
+                </Box>
+              ) : (
+                <Box>
+                  <Button
+                    color="primary"
+                    variant="outlined"
+                    style={{ borderColor: "#0adaf1eb", color: "#0adaf1eb" }}
+                    onClick={() => handleNavigation("loginform")}
+                  >
+                    Login
+                  </Button>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    style={{
+                      backgroundColor: "rgb(23 124 175)",
+                      color: "#ffffff",
+                      marginLeft: "10px",
+                    }}
+                    onClick={() => handleNavigation("signup")}
+                  >
+                    Signup
+                  </Button>
+                </Box>
+              )}
             </Box>
           </Container>
         </Box>
@@ -224,6 +260,7 @@ export default function LandingPage() {
             {jobListings.map((job) => (
               <Grid item xs={12} sm={6} md={4} key={job.id}>
                 <Box
+                  onClick={() => handleJobClick(job.id)}
                   sx={{
                     bgcolor: "#07313a",
                     padding: "20px",
@@ -240,24 +277,9 @@ export default function LandingPage() {
                     },
                   }}
                 >
-                  <Typography variant="h6">{job.title}</Typography>
-                  <Typography variant="body1" style={{ marginTop: "10px" }}>
-                    {job.company}
+                  <Typography variant="h5" textAlign={"center"}>
+                    {job.title}
                   </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    {job.location}
-                  </Typography>
-                  <Button
-                    variant="contained"
-                    style={{
-                      backgroundColor: "rgb(23 124 175)",
-                      color: "#ffffff",
-                      marginTop: "15px",
-                    }}
-                    fullWidth
-                  >
-                    Apply Now
-                  </Button>
                 </Box>
               </Grid>
             ))}
@@ -274,7 +296,6 @@ export default function LandingPage() {
         >
           <Container maxWidth="lg">
             <Grid container spacing={4}>
-              {/* Column 1: About Us */}
               <Grid item xs={12} sm={4}>
                 <Typography variant="h6" style={{ fontWeight: "bold" }}>
                   About HireFlow
@@ -285,13 +306,9 @@ export default function LandingPage() {
                   mt="10px"
                   style={{ textAlign: "justify" }}
                 >
-                  HireFlow is your go-to platform for connecting top talent with
-                  world-class companies. We simplify hiring for recruiters and
-                  job seekers.
+                  HireFlow connects top talent with companies for success.
                 </Typography>
               </Grid>
-
-              {/* Column 2: Quick Links */}
               <Grid item xs={12} sm={4}>
                 <Typography variant="h6" style={{ fontWeight: "bold" }}>
                   Quick Links
@@ -316,8 +333,6 @@ export default function LandingPage() {
                   ))}
                 </Box>
               </Grid>
-
-              {/* Column 3: Contact Information */}
               <Grid item xs={12} sm={4}>
                 <Typography variant="h6" style={{ fontWeight: "bold" }}>
                   HireFlow.com.np
@@ -334,17 +349,12 @@ export default function LandingPage() {
                     hireflow143@gmail.com
                   </Typography>
                 </Box>
-
-                {/* Social Media Links */}
                 <Box mt="10px" textAlign="center">
                   <a
                     href="https://facebook.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{
-                      color: "#ffffff",
-                      margin: "10px 10px 10px -260px",
-                    }} // Removed left margin
+                    style={{ color: "#ffffff", margin: "10px" }}
                   >
                     <Facebook />
                   </a>
@@ -352,7 +362,7 @@ export default function LandingPage() {
                     href="https://instagram.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: "#ffffff", margin: "0 10px 0 0" }} // Removed left margin
+                    style={{ color: "#ffffff", margin: "10px" }}
                   >
                     <Instagram />
                   </a>
@@ -360,7 +370,7 @@ export default function LandingPage() {
                     href="https://twitter.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: "#ffffff", margin: "0 10px 0 0" }} // Removed left margin
+                    style={{ color: "#ffffff", margin: "10px" }}
                   >
                     <Twitter />
                   </a>

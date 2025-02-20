@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Container,
@@ -14,7 +14,11 @@ import {
   Paper,
   Button,
   Box,
+  TextField,
+  Modal,
+  IconButton,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 const jobData = [
   {
@@ -69,78 +73,86 @@ const jobData = [
 
 export default function JobTable() {
   const router = useRouter();
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    position: "",
+    address: "",
+    phone: "",
+    website: "",
+  });
+
+  // Open modal & set job position in form
+  const handleApplyClick = (job) => {
+    setSelectedJob(job);
+    setFormData({ ...formData, position: job.title });
+  };
+
+  // Close modal
+  const handleCloseModal = () => {
+    setSelectedJob(null);
+  };
+
+  // Handle form inputs
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Handle form submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Application Submitted:", formData);
+    alert("Application submitted successfully!");
+    handleCloseModal();
+  };
 
   return (
     <Container style={{ marginTop: "50px" }}>
+      {/* Job Listings Table */}
       <Typography variant="h3" gutterBottom textAlign="center">
-        Job Listings
+        Product Manager Job Listings
       </Typography>
-
       <TableContainer component={Paper}>
         <Table style={{ backgroundColor: "#0b4754" }}>
           <TableHead>
             <TableRow style={{ backgroundColor: "#07313a" }}>
-              <TableCell
-                style={{
-                  color: "#0adaf1eb",
-                  fontWeight: "bold",
-                  fontSize: 20,
-                }}
-              >
-                Company Name
-              </TableCell>
-              <TableCell
-                style={{
-                  color: "#0adaf1eb",
-                  fontWeight: "bold",
-                  fontSize: 20,
-                }}
-              >
-                Experience
-              </TableCell>
-              <TableCell
-                style={{
-                  color: "#0adaf1eb",
-                  fontWeight: "bold",
-                  fontSize: 20,
-                }}
-              >
-                Salary Range
-              </TableCell>
-              <TableCell
-                style={{
-                  color: "#0adaf1eb",
-                  fontWeight: "bold",
-                  fontSize: 20,
-                }}
-              >
-                Location
-              </TableCell>
-              <TableCell
-                style={{
-                  color: "#0adaf1eb",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                  fontSize: 20,
-                }}
-              >
-                Action
-              </TableCell>
+              {[
+                "Company Name",
+                "Experience",
+                "Salary Range",
+                "Location",
+                "Action",
+              ].map((header) => (
+                <TableCell
+                  key={header}
+                  style={{
+                    color: "#0adaf1eb",
+                    fontWeight: "bold",
+                    fontSize: 20,
+                  }}
+                >
+                  {header}
+                </TableCell>
+              ))}
             </TableRow>
           </TableHead>
-
           <TableBody>
             {jobData.map((job) => (
-              <TableRow style={{ color: "white" }} key={job.id} hover>
+              <TableRow key={job.id} hover>
                 <TableCell style={{ color: "white" }}>{job.company}</TableCell>
-                <TableCell style={{ color: "white" }}>{job.experience}</TableCell>
+                <TableCell style={{ color: "white" }}>
+                  {job.experience}
+                </TableCell>
                 <TableCell style={{ color: "white" }}>{job.salary}</TableCell>
                 <TableCell style={{ color: "white" }}>{job.location}</TableCell>
                 <TableCell style={{ color: "white", textAlign: "center" }}>
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => router.push(`/apply/${job.id}`)}
+                    onClick={() => handleApplyClick(job)}
                   >
                     Apply Now
                   </Button>
@@ -150,6 +162,124 @@ export default function JobTable() {
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Apply Form Modal */}
+      <Modal open={Boolean(selectedJob)} onClose={handleCloseModal}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "rgb(4, 33, 42)",
+            p: 4,
+            borderRadius: "10px",
+            boxShadow: 24,
+            width: "1400px", // Increased width for the modal
+            height: "750px", // Increased height for the modal
+            display: "flex", // Flexbox layout to separate form and image
+            flexDirection: "row",
+          }}
+        >
+          {/* Left side with image/graphics */}
+          <Box
+            sx={{
+              width: "50%",
+              height: "100%",
+              backgroundImage: "/images/ApplyForm.png", // Add your image URL here Errorrrrrr Image dekhayena
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              borderRadius: "10px",
+            }}
+          ></Box>
+
+          {/* Right side with form */}
+          <Box
+            sx={{
+              width: "50%",
+              height: "100%",
+              padding: "20px",
+              overflowY: "auto",
+              color: "#fff",
+              backgroundColor: "#07313a",
+              borderRadius: "10px",
+              boxSizing: "border-box",
+            }}
+          >
+            {/* Close Button */}
+            <IconButton
+              onClick={handleCloseModal}
+              sx={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                color: "#fff",
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+
+            <Typography
+              variant="h4"
+              style={{
+                color: "#0adaf1eb",
+                textAlign: "center",
+                marginBottom: "20px",
+              }}
+            >
+              Apply for {selectedJob?.title}
+            </Typography>
+
+            <form onSubmit={handleSubmit}>
+              {/* Job Position Field (Pre-filled) */}
+              <TextField
+                label="Job Position"
+                name="position"
+                variant="outlined"
+                fullWidth
+                value={formData.position}
+                onChange={handleInputChange}
+                sx={{ mb: 2, bgcolor: "#07313a", color: "#fff" }}
+                InputProps={{ style: { color: "#0adaf1eb" } }}
+                InputLabelProps={{ style: { color: "#0adaf1eb" } }}
+                disabled
+              />
+
+              {/* Other Input Fields */}
+              {[
+                "firstName",
+                "lastName",
+                "email",
+                "address",
+                "phone",
+                "website",
+              ].map((field) => (
+                <TextField
+                  key={field}
+                  label={field.replace(/^\w/, (c) => c.toUpperCase())} // Capitalize first letter
+                  name={field}
+                  variant="outlined"
+                  fullWidth
+                  value={formData[field]}
+                  onChange={handleInputChange}
+                  sx={{ mb: 2, bgcolor: "#07313a", color: "#fff" }}
+                  InputProps={{ style: { color: "#0adaf1eb" } }}
+                  InputLabelProps={{ style: { color: "#0adaf1eb" } }}
+                />
+              ))}
+
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                type="submit"
+              >
+                Submit Application
+              </Button>
+            </form>
+          </Box>
+        </Box>
+      </Modal>
 
       {/* Back Button */}
       <Box display="flex" justifyContent="center" marginTop="20px">
