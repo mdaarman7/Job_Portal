@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Container, Box, Typography, Button, TextField, MenuItem } from "@mui/material";
-import { login, loginForEmployee, loginForRecruiter } from "../util/api";
+import { login, loginForEmployee, loginForRecruiter,loginData } from "../util/api";
 import { useRouter } from "next/navigation"; // For navigation
 
 export default function LoginForm() {
@@ -103,6 +103,7 @@ export default function LoginForm() {
         const responseForEmployee = await loginForEmployee (formData);
         if(responseForEmployee.success){
           alert("Logged in successfully!");
+          const responseForLoginData = await loginData (formData);
           router.push("/homePageForFreelancer")
         }
         else
@@ -117,7 +118,9 @@ export default function LoginForm() {
         const response = await loginForRecruiter (formData);
         if(response.success){
           alert("Logged in successfully!");
-          router.push("/recruiterform")
+          const responseForLoginData = await loginData (formData);
+          router.push("/recruiterLoginPage")
+
         }
         else
         {

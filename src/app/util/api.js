@@ -50,3 +50,33 @@ export async function addContactUsInformtaion(data){
     console.log("Making api call");
     return await makeApiCall("/contact/add","POST",data);
 }
+
+export async function loginData (data){
+    console.log("Making api call");
+    return await makeApiCall("/logindata/add","POST",data);
+    
+} 
+
+export async function deleteLoginData (id){
+    console.log("Making api call");
+    return await makeApiCall(`/logindata/delete/${id}`,"DELETE");
+    
+} 
+
+export async function getLoggedInData (){
+    console.log("Making api call");
+    return await makeApiCall("/logindata/list","GET");
+    
+} 
+
+export async function addJobDetails (data){
+    console.log("Making api call");
+    return await makeApiCall("/addjob/add","POST",data);
+    
+} 
+
+export async function getJobDetails (){
+    console.log("Making api call");
+    return await makeApiCall("/addjob/list","GET");
+    
+} 

@@ -19,6 +19,7 @@ import {
   Twitter,
 } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
+import { deleteLoginData, getLoggedInData } from "../util/api";
 
 export default function LandingPage() {
   const [searchQuery, setSearchQuery] = useState(""); // State for search input
@@ -72,6 +73,20 @@ export default function LandingPage() {
   }); // To store user data (if logged in)
   const router = useRouter(); // For navigation
 
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await getLoggedInData(); // Fetch data
+        setUsers(response); // Update state
+        console.log(response); // Log the fetched response directly
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+      fetchUsers();
+  }, []);
+  console.log(users);
   useEffect(() => {
     setIsClient(true); // Ensure client-side rendering
   }, []);
@@ -96,10 +111,22 @@ export default function LandingPage() {
     router.push(`/job/${jobId}`); // Navigate to the job detail page
   };
 
-  const handleLogout = () => {
-    setUser(null); // Reset user state to simulate logout
-    router.push("/"); // Redirect to home page after logout
+  const handleLogout = async () => {
+    if (users.length > 0) {
+      const userId = users[0].id; // Assuming only one user is logged in
+      try {
+        await deleteLoginData(userId);
+        console.log(`User with the ID number ${userId} deleted`);
+        setUser(null); // Reset user state
+        router.push("/"); // Redirect to home
+      } catch (error) {
+        console.error("Error deleting user:", error);
+      }
+    } else {
+      console.error("No user found to delete.");
+    }
   };
+  
 
   if (!isClient) {
     return null; // Prevent rendering on the server-side
@@ -178,7 +205,7 @@ export default function LandingPage() {
               {user ? (
                 <Box display="flex" alignItems="center">
                   <Typography variant="body1" style={{ color: "#0adaf1eb" }}>
-                    {user.username}
+                    {/* {} Name Appeared */}
                   </Typography>
                   <Button
                     color="primary"
