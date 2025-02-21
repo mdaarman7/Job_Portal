@@ -49,6 +49,7 @@ export default function JobTable() {
   }, []);
 
   const handleApplyClick = (job) => {
+    //router.push("/ApplyForm");
     setSelectedJob(job);
     setFormData((prev) => ({ ...prev, position: job.title }));
   };
