@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
   Container,
@@ -19,15 +19,7 @@ import {
   IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-
-const jobData = [
-  { id: 1, company: "Tech Solutions", title: "Frontend Developer", salary: "$60,000 - $80,000", experience: "2+ years", location: "Remote" },
-  { id: 2, company: "Innovatech", title: "Backend Developer", salary: "$70,000 - $90,000", experience: "3+ years", location: "San Francisco" },
-  { id: 3, company: "CodeCrafters", title: "Full Stack Developer", salary: "$80,000 - $100,000", experience: "4+ years", location: "Austin" },
-  { id: 4, company: "DesignHub", title: "UI/UX Designer", salary: "$50,000 - $70,000", experience: "1+ years", location: "Seattle" },
-  { id: 5, company: "Data Wizards", title: "Data Scientist", salary: "$90,000 - $120,000", experience: "5+ years", location: "Chicago" },
-  { id: 6, company: "VisionaryTech", title: "Product Manager", salary: "$100,000 - $130,000", experience: "6+ years", location: "Boston" },
-];
+import { getJobDetails } from "@/app/util/api";
 
 export default function JobTable() {
   const router = useRouter();
@@ -42,9 +34,23 @@ export default function JobTable() {
     website: "",
   });
 
+  const [jobListings, setJobListings] = useState([]);
+
+  useEffect(() => {
+    async function fetchJobs() {
+      try {
+        const response = await getJobDetails();
+        setJobListings(response);
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      }
+    }
+    fetchJobs();
+  }, []);
+
   const handleApplyClick = (job) => {
     setSelectedJob(job);
-    setFormData({ ...formData, position: job.title });
+    setFormData((prev) => ({ ...prev, position: job.title }));
   };
 
   const handleCloseModal = () => {
@@ -72,20 +78,20 @@ export default function JobTable() {
         <Table style={{ backgroundColor: "#0b4754" }}>
           <TableHead>
             <TableRow style={{ backgroundColor: "#07313a" }}>
-              {["Company Name", "Experience", "Salary Range", "Location", "Action"].map((header) => (
-                <TableCell key={header} style={{ color: "#0adaf1eb", fontWeight: "bold", fontSize: 20 }}>
+              {["Company Name", "Experience", "Salary Range", "Location", "Action"].map((header, index) => (
+                <TableCell key={index} style={{ color: "#0adaf1eb", fontWeight: "bold", fontSize: 20 }}>
                   {header}
                 </TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {jobData.map((job) => (
-              <TableRow key={job.id} hover>
-                <TableCell style={{ color: "white" }}>{job.company}</TableCell>
+            {jobListings.map((job, index) => (
+              <TableRow key={job.id || index} hover>
+                <TableCell style={{ color: "white" }}>{job.companyname}</TableCell>
                 <TableCell style={{ color: "white" }}>{job.experience}</TableCell>
                 <TableCell style={{ color: "white" }}>{job.salary}</TableCell>
-                <TableCell style={{ color: "white" }}>{job.location}</TableCell>
+                <TableCell style={{ color: "white" }}>{job.address}</TableCell>
                 <TableCell style={{ color: "white", textAlign: "center" }}>
                   <Button variant="contained" color="primary" onClick={() => handleApplyClick(job)}>
                     Apply Now

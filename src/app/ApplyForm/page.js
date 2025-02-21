@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Container, Box, Typography, TextField, Button } from "@mui/material";
 import { useRouter } from "next/navigation"; // For navigation
+import { addApplyJob, addApplyJobDetails } from "../util/api";
 
 export default function ApplyForm() {
   const router = useRouter(); // Hook for navigation
@@ -46,56 +47,69 @@ export default function ApplyForm() {
   };
 
   // Form Submit Handler
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    let hasError = false;
-    const newErrors = { ...errors };
+  let hasError = false;
+  const newErrors = { ...errors };
 
-    // Validation
-    if (!formData.firstName.trim()) {
-      newErrors.firstName = "First Name is required.";
-      hasError = true;
-    }
-    if (!formData.lastName.trim()) {
-      newErrors.lastName = "Last Name is required.";
-      hasError = true;
-    }
-    if (!formData.email.match(/^\S+@\S+\.\S+$/)) {
-      newErrors.email = "Enter a valid email.";
-      hasError = true;
-    }
-    if (!formData.position.trim()) {
-      newErrors.position = "Position is required.";
-      hasError = true;
-    }
-    if (!formData.address.trim()) {
-      newErrors.address = "Address is required.";
-      hasError = true;
-    }
-    if (!formData.phone.match(/^\d{10}$/)) {
-      newErrors.phone = "Enter a valid 10-digit phone number.";
-      hasError = true;
-    }
-    if (
-      formData.website &&
-      !formData.website.match(/^(https?:\/\/)?([\w-]+(\.[\w-]+)+\/?)$/)
-    ) {
-      newErrors.website = "Enter a valid website URL.";
-      hasError = true;
-    }
+  // Validation
+  if (!formData.firstName.trim()) {
+    newErrors.firstName = "First Name is required.";
+    hasError = true;
+  }
+  if (!formData.lastName.trim()) {
+    newErrors.lastName = "Last Name is required.";
+    hasError = true;
+  }
+  if (!formData.email.match(/^\S+@\S+\.\S+$/)) {
+    newErrors.email = "Enter a valid email.";
+    hasError = true;
+  }
+  if (!formData.position.trim()) {
+    newErrors.position = "Position is required.";
+    hasError = true;
+  }
+  if (!formData.address.trim()) {
+    newErrors.address = "Address is required.";
+    hasError = true;
+  }
+  if (!formData.phone.match(/^\d{10}$/)) {
+    newErrors.phone = "Enter a valid 10-digit phone number.";
+    hasError = true;
+  }
+  if (
+    formData.website &&
+    !formData.website.match(/^(https?:\/\/)?([\w-]+(\.[\w-]+)+\/?)$/)
+  ) {
+    newErrors.website = "Enter a valid website URL.";
+    hasError = true;
+  }
 
-    // If errors exist, set error state and stop submission
-    if (hasError) {
-      setErrors(newErrors);
-      return;
+  // If errors exist, set error state and stop submission
+  if (hasError) {
+    setErrors(newErrors);
+    return;
+  }
+
+  console.log("Form Submitted Successfully!", formData);
+
+  try {
+    const response = await addApplyJob(formData);
+    console.log("API Response:", response);
+
+    if (response) {
+      alert("Application Submitted");
+      router.push("/");
+    } else {
+      alert("Application not Submitted");
     }
+  } catch (error) {
+    console.error("Error submitting application:", error);
+    alert("An error occurred while submitting.");
+  }
+};
 
-    console.log("Form Submitted Successfully!", formData);
-
-    alert("Application submitted successfully!");
-    router.push("/thank-you"); // Redirect after submission
-  };
 
   return (
     <Container

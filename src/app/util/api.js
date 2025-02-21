@@ -82,8 +82,8 @@ export async function getJobDetails (){
 } 
 
 
-export async function addApplyJobDetails(data){
+export async function addApplyJob(data){
     console.log("Making api call");
-    return await makeApiCall("/apply/add","POST",data);
+    return await makeApiCall("/applyjob/add","POST",data);
     
 } 
