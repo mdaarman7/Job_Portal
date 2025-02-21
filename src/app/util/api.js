@@ -162,3 +162,10 @@ export async function getProductJob (){
     return await makeApiCall("/productjob/list","GET");
     
 } 
+
+
+export async function deleteAddedJob(id){
+    console.log("Making api call");
+    return await makeApiCall(`/frontendjob/delete/${id}`,"DELETE");
+    
+} 

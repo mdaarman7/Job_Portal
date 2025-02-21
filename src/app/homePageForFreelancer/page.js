@@ -100,9 +100,18 @@ export default function LandingPage() {
   };
 
   const handleNavigation = (page) => {
-    if (page === "home") {
-      router.push("/"); // Navigate to the home page
-    } else {
+    if (page === "home")
+    {
+      if (!users || users.length === 0) {
+        router.push("/");
+      }
+      else
+      {
+        router.push("/homePageForFreelancer");
+      }
+
+    } else 
+    {
       router.push(`/${page}`); // Navigate to other pages
     }
   };

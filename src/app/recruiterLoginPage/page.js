@@ -5,20 +5,42 @@ import Head from "next/head";
 import { Container, Box, Typography, Button, TextField, Grid } from "@mui/material";
 import { Business } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
-import { addBackendJob, addDatascJob, addDesignJob, addFrontendJob, addFullstackJob, addJobDetails, addProductJob, deleteLoginData, getJobDetails, getLoggedInData } from "../util/api";
+import { addBackendJob, addDatascJob, addDesignJob, addFrontendJob, addFullstackJob, addJobDetails, addProductJob, deleteAddedJob, deleteLoginData, getBackendJob, getDatascJob, getDesignJob, getFrontendJob, getFullstackJob, getJobDetails, getLoggedInData, getProductJob } from "../util/api";
 
 export default function RecruiterLogin() {
   const [username, setUsername] = useState("John Doe"); // Simulating a logged-in recruiter
   const router = useRouter();
   const [jobListings, setJobListings] = useState([]);
 
-  useEffect(() => {
-    async function fetchJobs() {
-      const jobs = await getJobDetails();
-      if (jobs) setJobListings(jobs);
+  const fetchAllJobs = async () => {
+    try {
+      const frontendJobs = await getFrontendJob();
+      const backendJobs = await getBackendJob();
+      const fullstackJobs = await getFullstackJob();
+      const designJobs = await getDesignJob();
+      const datascienceJobs = await getDatascJob();
+      const productJobs = await getProductJob();
+
+      const allJobs = [
+        ...(frontendJobs || []),
+        ...(backendJobs || []),
+        ...(fullstackJobs || []),
+        ...(designJobs || []),
+        ...(datascienceJobs || []),
+        ...(productJobs || [])
+      ];
+
+      setJobListings(allJobs);
+    } catch (error) {
+      console.error("Error fetching jobs:", error);
     }
-    fetchJobs();
+  };
+
+  // Fetch jobs when component loads
+  useEffect(() => {
+    fetchAllJobs();
   }, []);
+  
 
   // State for form fields
   const [formData, setFormData] = useState({
@@ -93,10 +115,11 @@ export default function RecruiterLogin() {
       const response = await addFrontendJob(formData);
        if (response) {
       alert("Job Added Successfully");
-
+        fetchAllJobs();
       // Fetch updated job listings
-      const updatedJobs = await getJobDetails();
-      setJobListings(updatedJobs);
+      // const updatedJobs = await getFrontendJob();
+      //   console.log(updatedJobs);
+      // setJobListings(updatedJobs);
 
       // Clear form fields and errors
       setFormData({ companyname: "", jobtitle: "", salary: "", experience: "", address: "" });
@@ -113,10 +136,10 @@ export default function RecruiterLogin() {
       const response = await addBackendJob(formData);
        if (response) {
       alert("Job Added Successfully");
-
+      fetchAllJobs();
       // Fetch updated job listings
-      const updatedJobs = await getJobDetails();
-      setJobListings(updatedJobs);
+      // const updatedJobs = await getBackendJob();
+      // setJobListings(updatedJobs);
 
       // Clear form fields and errors
       setFormData({ companyname: "", jobtitle: "", salary: "", experience: "", address: "" });
@@ -133,10 +156,10 @@ export default function RecruiterLogin() {
       const response = await addFullstackJob(formData);
        if (response) {
       alert("Job Added Successfully");
-
+      fetchAllJobs();
       // Fetch updated job listings
-      const updatedJobs = await getJobDetails();
-      setJobListings(updatedJobs);
+      // const updatedJobs = await getJobDetails();
+      // setJobListings(updatedJobs);
 
       // Clear form fields and errors
       setFormData({ companyname: "", jobtitle: "", salary: "", experience: "", address: "" });
@@ -152,10 +175,10 @@ export default function RecruiterLogin() {
         const response = await addDesignJob(formData);
          if (response) {
         alert("Job Added Successfully");
-  
+        fetchAllJobs();
         // Fetch updated job listings
-        const updatedJobs = await getJobDetails();
-        setJobListings(updatedJobs);
+        // const updatedJobs = await getJobDetails();
+        // setJobListings(updatedJobs);
   
         // Clear form fields and errors
         setFormData({ companyname: "", jobtitle: "", salary: "", experience: "", address: "" });
@@ -172,10 +195,10 @@ export default function RecruiterLogin() {
           const response = await addDatascJob(formData);
            if (response) {
           alert("Job Added Successfully");
-    
+          fetchAllJobs();
           // Fetch updated job listings
-          const updatedJobs = await getJobDetails();
-          setJobListings(updatedJobs);
+          // const updatedJobs = await getJobDetails();
+          // setJobListings(updatedJobs);
     
           // Clear form fields and errors
           setFormData({ companyname: "", jobtitle: "", salary: "", experience: "", address: "" });
@@ -192,10 +215,10 @@ export default function RecruiterLogin() {
             const response = await addProductJob(formData);
              if (response) {
             alert("Job Added Successfully");
-      
+            fetchAllJobs();
             // Fetch updated job listings
-            const updatedJobs = await getJobDetails();
-            setJobListings(updatedJobs);
+            // const updatedJobs = await getJobDetails();
+            // setJobListings(updatedJobs);
       
             // Clear form fields and errors
             setFormData({ companyname: "", jobtitle: "", salary: "", experience: "", address: "" });
@@ -212,21 +235,21 @@ export default function RecruiterLogin() {
             router.push("/recruiterLoginPage");
           }
 
-    const response = await addJobDetails(formData);
-    if (response) {
-      //alert("Job Added Successfully");
+    // const response = await addJobDetails(formData);
+    // if (response) {
+    //   //alert("Job Added Successfully");
 
-      // Fetch updated job listings
-      const updatedJobs = await getJobDetails();
-      setJobListings(updatedJobs);
+    //   // Fetch updated job listings
+    //   const updatedJobs = await getFrontendJob();
+    //   setJobListings(updatedJobs);
 
-      // Clear form fields and errors
-      setFormData({ companyname: "", jobtitle: "", salary: "", experience: "", address: "" });
-      setErrors({});
-    } else {
-      alert("Failed to Add Job");
-      router.push("/loginform");
-    }
+    //   // Clear form fields and errors
+    //   setFormData({ companyname: "", jobtitle: "", salary: "", experience: "", address: "" });
+    //   setErrors({});
+    // } else {
+    //   alert("Failed to Add Job");
+    //   router.push("/loginform");
+    // }
   };
 
   // Handle logout
@@ -246,6 +269,37 @@ export default function RecruiterLogin() {
       }
     };
 
+    const handleDelete = async (id, jobtitle) => {
+      if (!id) {
+        console.error("Error: Job ID is undefined.");
+        return;
+      }
+      console.log("Deleting job with ID:", id);
+      console.log("Deleting Job Title",jobtitle);
+      if(jobtitle.toLowerCase() == "frontend")
+      {
+          const response = await deleteAddedJob(id);
+          if (response) {
+              fetchAllJobs();
+          alert("Job Deleted Successfully");
+        } else {
+          alert("Failed to Delete Job");
+        }
+      }
+       
+    };
+    
+    
+    const handleUpdate = (job) => {
+      setFormData({
+        companyname: job.companyname,
+        jobtitle: job.jobtitle,
+        salary: job.salary,
+        experience: job.experience,
+        address: job.address,
+      });
+    };
+    
   return (
     <>
       <Head>
@@ -330,6 +384,27 @@ export default function RecruiterLogin() {
                   <Typography variant="body2">Salary: {job.salary}</Typography>
                   <Typography variant="body2">Experience: {job.experience}</Typography>
                   <Typography variant="body2">Location: {job.address}</Typography>
+                  <Button
+                          variant="contained"
+                          style={{ marginTop: "20px", backgroundColor: "#0adaf1eb", color: "#ffffff" }}
+                          onClick={() => {
+                            if (job.id) {
+                              handleDelete(job.id, job.jobtitle);
+                            } else {
+                              console.error("Job ID is undefined:", job);
+                            }
+                          }}
+                        >
+                          Delete
+                        </Button>
+
+                      <Button
+                          variant="contained"
+                          style={{ marginTop: "20px", backgroundColor: "#0adaf1eb", color: "#ffffff" }}
+                          onClick={() => handleUpdate(job)}
+                        >
+                          Update
+                        </Button>
                 </Box>
               </Grid>
             ))
