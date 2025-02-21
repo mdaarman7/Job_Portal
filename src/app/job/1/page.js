@@ -19,7 +19,7 @@ import {
   IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { getJobDetails } from "@/app/util/api";
+import { getFrontendJob, getJobDetails } from "@/app/util/api";
 
 export default function JobTable() {
   const router = useRouter();
@@ -39,7 +39,7 @@ export default function JobTable() {
   useEffect(() => {
     async function fetchJobs() {
       try {
-        const response = await getJobDetails();
+        const response = await getFrontendJob();
         setJobListings(response);
       } catch (error) {
         console.error("Error fetching jobs:", error);

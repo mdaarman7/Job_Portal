@@ -124,3 +124,41 @@ export async function addFullstackJob(data){
     return await makeApiCall("/fullstackjob/add","POST",data);
     
 } 
+
+
+
+export async function getFrontendJob (){
+    console.log("Making api call");
+    return await makeApiCall("/frontendjob/list","GET");
+    
+} 
+
+export async function getBackendJob (){
+    console.log("Making api call");
+    return await makeApiCall("/backendjob/list","GET");
+    
+} 
+
+export async function getFullstackJob (){
+    console.log("Making api call");
+    return await makeApiCall("/fullstackjob/list","GET");
+    
+} 
+
+export async function getDesignJob (){
+    console.log("Making api call");
+    return await makeApiCall("/designjob/list","GET");
+    
+} 
+
+export async function getDatascJob (){
+    console.log("Making api call");
+    return await makeApiCall("/datascjob/list","GET");
+    
+} 
+
+export async function getProductJob (){
+    console.log("Making api call");
+    return await makeApiCall("/productjob/list","GET");
+    
+} 
