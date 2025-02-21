@@ -200,7 +200,7 @@ export default function LandingPage() {
             Find Your Dream Job
           </Typography>
           <Box display="flex" justifyContent="center" alignItems="center">
-            <TextField
+            {/* <TextField
               label="Search for jobs"
               variant="outlined"
               value={searchQuery}
@@ -224,7 +224,7 @@ export default function LandingPage() {
               onClick={handleSearch}
             >
               Search
-            </Button>
+            </Button> */}
           </Box>
         </Container>
 
@@ -251,7 +251,7 @@ export default function LandingPage() {
                     },
                   }}
                 >
-                  <Typography variant="h5" textAlign={"center"}>
+                  <Typography variant="h5" textAlign={"center"} lineHeight={6.0}>
                     {job.title}
                   </Typography>
                   {/* <Typography variant="body2" style={{ marginTop: "10px" }}>
@@ -332,12 +332,12 @@ export default function LandingPage() {
                     hireflow143@gmail.com
                   </Typography>
                 </Box>
-                <Box mt="10px" textAlign="center">
+                <Box mt="10px" textAlign="left">
                   <a
                     href="https://facebook.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: "#ffffff", margin: "10px" }}
+                    style={{ color: "#ffffff", margin: "0px" }}
                   >
                     <Facebook />
                   </a>

@@ -160,16 +160,7 @@ export default function JobTable() {
             <Typography variant="h4" style={{ color: "#0adaf1eb", textAlign: "center", marginBottom: "20px" }}>
               Apply for {selectedJob?.title}
             </Typography>
-            <form onSubmit={handleSubmit}>
-              <TextField label="Job Position" name="position" variant="outlined" fullWidth value={formData.position} onChange={handleInputChange} sx={{ mb: 2, bgcolor: "#07313a", color: "#fff" }} InputProps={{ style: { color: "#0adaf1eb" } }} InputLabelProps={{ style: { color: "#0adaf1eb" } }} disabled />
-              {["firstname", "lastname", "email", "address", "phone"].map((field) => (
-                <TextField key={field} label={field.replace(/^\w/, (c) => c.toUpperCase())} name={field} variant="outlined" fullWidth value={formData[field]} onChange={handleInputChange} required sx={{ mb: 2, bgcolor: "#07313a", color: "#fff" }} InputProps={{ style: { color: "#0adaf1eb" } }} InputLabelProps={{ style: { color: "#0adaf1eb" } }} />
-              ))}
-              <TextField label="Website" name="website" variant="outlined" fullWidth value={formData.website} onChange={handleInputChange} sx={{ mb: 2, bgcolor: "#07313a", color: "#fff" }} InputProps={{ style: { color: "#0adaf1eb" } }} InputLabelProps={{ style: { color: "#0adaf1eb" } }} />
-              <Button variant="contained" color="primary" fullWidth type="submit">
-                Submit Application
-              </Button>
-            </form>
+            
           </Box>
         </Box>
       </Modal>

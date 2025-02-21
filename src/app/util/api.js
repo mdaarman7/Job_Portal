@@ -194,3 +194,8 @@ export async function deleteAddedProductJob(id){
     return await makeApiCall(`/productjob/delete/${id}`,"DELETE");
     
 } 
+export async function updateFrontend(id){
+    console.log("Making api call");
+    return await makeApiCall(`/frontendjob/update/${id}`,"PUT");
+    
+} 

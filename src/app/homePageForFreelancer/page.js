@@ -262,7 +262,7 @@ export default function LandingPage() {
             Find Your Dream Job
           </Typography>
           <Box display="flex" justifyContent="center" alignItems="center">
-            <TextField
+            {/* <TextField
               label="Search for jobs"
               variant="outlined"
               value={searchQuery}
@@ -279,14 +279,14 @@ export default function LandingPage() {
               InputLabelProps={{
                 style: { color: "#0adaf1eb" },
               }}
-            />
-            <Button
+            /> */}
+            {/* <Button
               variant="contained"
               style={{ backgroundColor: "rgb(23 124 175)", color: "#ffffff" }}
               onClick={handleSearch}
             >
               Search
-            </Button>
+            </Button> */}
           </Box>
         </Container>
 
@@ -313,7 +313,7 @@ export default function LandingPage() {
                     },
                   }}
                 >
-                  <Typography variant="h5" textAlign={"center"}>
+                  <Typography variant="h5" textAlign={"center"} lineHeight={6.0}>
                     {job.title}
                   </Typography>
                 </Box>

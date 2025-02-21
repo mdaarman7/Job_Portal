@@ -104,7 +104,7 @@ export default function JobTable() {
   return (
     <Container style={{ marginTop: "50px" }}>
       <Typography variant="h3" gutterBottom textAlign="center">
-        Frontend Developer Job Listings
+        Backend Developer Job Listings
       </Typography>
       <TableContainer component={Paper}>
         <Table style={{ backgroundColor: "#0b4754" }}>

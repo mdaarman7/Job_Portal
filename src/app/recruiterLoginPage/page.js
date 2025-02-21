@@ -411,15 +411,16 @@ export default function RecruiterLogin() {
     };
     
     
-    const handleUpdate = (job) => {
-      setFormData({
-        companyname: job.companyname,
-        jobtitle: job.jobtitle,
-        salary: job.salary,
-        experience: job.experience,
-        address: job.address,
-      });
-    };
+    // const handleUpdate = (job) => {
+    //   setFormData({
+    //     companyname: job.companyname,
+    //     jobtitle: job.jobtitle,
+    //     salary: job.salary,
+    //     experience: job.experience,
+    //     address: job.address,
+    //   });
+      
+    // };
     
   return (
     <>
@@ -437,7 +438,7 @@ export default function RecruiterLogin() {
           {username && (
             <Box>
               <Typography variant="h6" color="white" style={{ marginRight: "10px" }}>
-                Welcome, {username}
+                Welcome, {recruiterUsername}
               </Typography>
               <Button variant="outlined" color="error" onClick={handleLogout}>
                 Logout
@@ -493,9 +494,10 @@ export default function RecruiterLogin() {
                   sx={{
                     bgcolor: "#07313a",
                     padding: "20px",
+                    marginTop: "40px",
                     borderRadius: "8px",
                     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                    height: "150px",
+                    height: "250px",
                     textAlign: "center",
                     color: "white",
                   }}
@@ -507,7 +509,7 @@ export default function RecruiterLogin() {
                   <Typography variant="body2">Location: {job.address}</Typography>
                   <Button
                           variant="contained"
-                          style={{ marginTop: "20px", backgroundColor: "#0adaf1eb", color: "#ffffff" }}
+                          style={{ marginTop: "40px", backgroundColor: "#0adaf1eb", color: "#ffffff" }}
                           onClick={() => {
                             if (job.id) {
                               handleDelete(job.id, job.jobtitle,job.username,job.password);
@@ -519,13 +521,13 @@ export default function RecruiterLogin() {
                           Delete
                         </Button>
 
-                      <Button
+                      {/* <Button
                           variant="contained"
                           style={{ marginTop: "20px", backgroundColor: "#0adaf1eb", color: "#ffffff" }}
                           onClick={() => handleUpdate(job)}
                         >
                           Update
-                        </Button>
+                        </Button> */}
                 </Box>
               </Grid>
             ))
