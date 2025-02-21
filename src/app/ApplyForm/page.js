@@ -1,9 +1,9 @@
 "use client"; // Ensures the component runs on the client-side
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Box, Typography, TextField, Button } from "@mui/material";
 import { useRouter } from "next/navigation"; // For navigation
-import { addApplyJob, addApplyJobDetails } from "../util/api";
+import { addApplyJob, addApplyJobDetails, getLoggedInData } from "../util/api";
 
 export default function ApplyForm() {
   const router = useRouter(); // Hook for navigation
@@ -30,6 +30,19 @@ export default function ApplyForm() {
     website: "",
   });
 
+  const [users, setUsers] = useState([]);
+    useEffect(() => {
+      const fetchUsers = async () => {
+        try {
+          const response = await getLoggedInData(); // Fetch data
+          setUsers(response); // Update state
+          console.log(response); // Log the fetched response directly
+        } catch (error) {
+          console.error("Error fetching users:", error);
+        }
+      };
+        fetchUsers();
+    }, []);
   // Handles Input Change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -47,7 +60,7 @@ export default function ApplyForm() {
   };
 
   // Form Submit Handler
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
 
   let hasError = false;
@@ -94,13 +107,22 @@ export default function ApplyForm() {
 
   console.log("Form Submitted Successfully!", formData);
 
+  // **Check if user is logged in**
+  // if (!users || users.length === 0) {
+  //   alert("You Need to Login");
+
+  //   // Redirect user to login page and stop execution
+  //   router.push("/loginform");
+  //   return; // 🚀 This ensures no further execution happens
+  // }
+
   try {
     const response = await addApplyJob(formData);
     console.log("API Response:", response);
 
     if (response) {
       alert("Application Submitted");
-      router.push("/");
+      router.push("/homePageForFreelancer");
     } else {
       alert("Application not Submitted");
     }
@@ -109,6 +131,8 @@ export default function ApplyForm() {
     alert("An error occurred while submitting.");
   }
 };
+
+  
 
 
   return (

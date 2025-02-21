@@ -19,7 +19,7 @@ import {
   IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { getBackendJob, getJobDetails } from "@/app/util/api";
+import { addApplyJob, getBackendJob, getFrontendJob, getJobDetails, getLoggedInData } from "@/app/util/api";
 
 export default function JobTable() {
   const router = useRouter();
@@ -33,6 +33,21 @@ export default function JobTable() {
     phone: "",
     website: "",
   });
+
+  const [users, setUsers] = useState([]);
+      useEffect(() => {
+        const fetchUsers = async () => {
+          try {
+            const response = await getLoggedInData(); // Fetch data
+            setUsers(response); // Update state
+            //console.log(response); // Log the fetched response directly
+          } catch (error) {
+            console.error("Error fetching users:", error);
+          }
+        };
+          fetchUsers();
+      }, []);
+
 
   const [jobListings, setJobListings] = useState([]);
 
@@ -49,7 +64,15 @@ export default function JobTable() {
   }, []);
 
   const handleApplyClick = (job) => {
-    //router.push("/ApplyForm");
+    if (!users || users.length === 0) {
+      alert("You Need to Login");
+  
+      // Redirect user to login page and stop execution
+      router.push("/loginform");
+      return; // 🚀 This ensures no further execution happens
+    }
+  
+    router.push("/ApplyForm");
     setSelectedJob(job);
     setFormData((prev) => ({ ...prev, position: job.title }));
   };
@@ -63,10 +86,18 @@ export default function JobTable() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     console.log("Application Submitted:", formData);
-    alert("Application submitted successfully!");
+
+    const response = await addApplyJob(formData);
+        console.log(response);
+        if(response){
+          alert("Application submitted successfully!");
+          router.push("/");
+        }
+        
+    
     handleCloseModal();
   };
 
@@ -131,7 +162,7 @@ export default function JobTable() {
             </Typography>
             <form onSubmit={handleSubmit}>
               <TextField label="Job Position" name="position" variant="outlined" fullWidth value={formData.position} onChange={handleInputChange} sx={{ mb: 2, bgcolor: "#07313a", color: "#fff" }} InputProps={{ style: { color: "#0adaf1eb" } }} InputLabelProps={{ style: { color: "#0adaf1eb" } }} disabled />
-              {["firstName", "lastName", "email", "address", "phone"].map((field) => (
+              {["firstname", "lastname", "email", "address", "phone"].map((field) => (
                 <TextField key={field} label={field.replace(/^\w/, (c) => c.toUpperCase())} name={field} variant="outlined" fullWidth value={formData[field]} onChange={handleInputChange} required sx={{ mb: 2, bgcolor: "#07313a", color: "#fff" }} InputProps={{ style: { color: "#0adaf1eb" } }} InputLabelProps={{ style: { color: "#0adaf1eb" } }} />
               ))}
               <TextField label="Website" name="website" variant="outlined" fullWidth value={formData.website} onChange={handleInputChange} sx={{ mb: 2, bgcolor: "#07313a", color: "#fff" }} InputProps={{ style: { color: "#0adaf1eb" } }} InputLabelProps={{ style: { color: "#0adaf1eb" } }} />
