@@ -5,7 +5,7 @@ import Head from "next/head";
 import { Container, Box, Typography, Button, TextField, Grid } from "@mui/material";
 import { Business } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
-import { addJobDetails, deleteLoginData, getJobDetails, getLoggedInData } from "../util/api";
+import { addBackendJob, addDatascJob, addDesignJob, addFrontendJob, addFullstackJob, addJobDetails, addProductJob, deleteLoginData, getJobDetails, getLoggedInData } from "../util/api";
 
 export default function RecruiterLogin() {
   const [username, setUsername] = useState("John Doe"); // Simulating a logged-in recruiter
@@ -86,9 +86,135 @@ export default function RecruiterLogin() {
       return;
     }
 
+    
+    
+    if (formData.jobtitle.toLowerCase() === "frontend") 
+    {
+      const response = await addFrontendJob(formData);
+       if (response) {
+      alert("Job Added Successfully");
+
+      // Fetch updated job listings
+      const updatedJobs = await getJobDetails();
+      setJobListings(updatedJobs);
+
+      // Clear form fields and errors
+      setFormData({ companyname: "", jobtitle: "", salary: "", experience: "", address: "" });
+      setErrors({});
+    } else {
+      alert("Failed to Add Job");
+      router.push("/loginform");
+    }
+    } 
+
+
+    else if (formData.jobtitle.toLowerCase() === "backend") 
+    {
+      const response = await addBackendJob(formData);
+       if (response) {
+      alert("Job Added Successfully");
+
+      // Fetch updated job listings
+      const updatedJobs = await getJobDetails();
+      setJobListings(updatedJobs);
+
+      // Clear form fields and errors
+      setFormData({ companyname: "", jobtitle: "", salary: "", experience: "", address: "" });
+      setErrors({});
+    } else {
+      alert("Failed to Add Job");
+      router.push("/loginform");
+    }
+    }
+
+
+    else if (formData.jobtitle.toLowerCase() === "fullstack") 
+    {
+      const response = await addFullstackJob(formData);
+       if (response) {
+      alert("Job Added Successfully");
+
+      // Fetch updated job listings
+      const updatedJobs = await getJobDetails();
+      setJobListings(updatedJobs);
+
+      // Clear form fields and errors
+      setFormData({ companyname: "", jobtitle: "", salary: "", experience: "", address: "" });
+      setErrors({});
+    } else {
+      alert("Failed to Add Job");
+      router.push("/loginform");
+    }
+    }
+
+    else if (formData.jobtitle.toLowerCase() === "ui/ux designer") 
+      {
+        const response = await addDesignJob(formData);
+         if (response) {
+        alert("Job Added Successfully");
+  
+        // Fetch updated job listings
+        const updatedJobs = await getJobDetails();
+        setJobListings(updatedJobs);
+  
+        // Clear form fields and errors
+        setFormData({ companyname: "", jobtitle: "", salary: "", experience: "", address: "" });
+        setErrors({});
+      } else {
+        alert("Failed to Add Job");
+        router.push("/loginform");
+      }
+      }
+
+
+      else if (formData.jobtitle.toLowerCase() === "data scientist") 
+        {
+          const response = await addDatascJob(formData);
+           if (response) {
+          alert("Job Added Successfully");
+    
+          // Fetch updated job listings
+          const updatedJobs = await getJobDetails();
+          setJobListings(updatedJobs);
+    
+          // Clear form fields and errors
+          setFormData({ companyname: "", jobtitle: "", salary: "", experience: "", address: "" });
+          setErrors({});
+        } else {
+          alert("Failed to Add Job");
+          router.push("/loginform");
+        }
+        }
+
+
+        else if (formData.jobtitle.toLowerCase() === "product manager") 
+          {
+            const response = await addProductJob(formData);
+             if (response) {
+            alert("Job Added Successfully");
+      
+            // Fetch updated job listings
+            const updatedJobs = await getJobDetails();
+            setJobListings(updatedJobs);
+      
+            // Clear form fields and errors
+            setFormData({ companyname: "", jobtitle: "", salary: "", experience: "", address: "" });
+            setErrors({});
+          } else {
+            alert("Failed to Add Job");
+            router.push("/loginform");
+          }
+          }
+
+          else
+          {
+            alert("Entered Job is not Listed");
+            router.push("/recruiterLoginPage");
+          }
+
     const response = await addJobDetails(formData);
     if (response) {
-      alert("Job Added Successfully");
+      //alert("Job Added Successfully");
 
       // Fetch updated job listings
       const updatedJobs = await getJobDetails();

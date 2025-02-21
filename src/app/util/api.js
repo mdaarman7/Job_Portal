@@ -87,3 +87,40 @@ export async function addApplyJob(data){
     return await makeApiCall("/applyjob/add","POST",data);
     
 } 
+
+export async function addFrontendJob(data){
+    console.log("Making api call");
+    return await makeApiCall("/frontendjob/add","POST",data);
+    
+} 
+
+export async function addBackendJob(data){
+    console.log("Making api call");
+    return await makeApiCall("/backendjob/add","POST",data);
+    
+} 
+
+
+export async function addDesignJob(data){
+    console.log("Making api call");
+    return await makeApiCall("/designjob/add","POST",data);
+    
+} 
+
+export async function addDatascJob(data){
+    console.log("Making api call");
+    return await makeApiCall("/datascjob/add","POST",data);
+    
+} 
+
+export async function addProductJob(data){
+    console.log("Making api call");
+    return await makeApiCall("/productjob/add","POST",data);
+    
+} 
+
+export async function addFullstackJob(data){
+    console.log("Making api call");
+    return await makeApiCall("/fullstackjob/add","POST",data);
+    
+} 
