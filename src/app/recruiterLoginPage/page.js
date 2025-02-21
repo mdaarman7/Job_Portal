@@ -5,7 +5,7 @@ import Head from "next/head";
 import { Container, Box, Typography, Button, TextField, Grid } from "@mui/material";
 import { Business } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
-import { addBackendJob, addDatascJob, addDesignJob, addFrontendJob, addFullstackJob, addJobDetails, addProductJob, deleteAddedJob, deleteLoginData, getBackendJob, getDatascJob, getDesignJob, getFrontendJob, getFullstackJob, getJobDetails, getLoggedInData, getProductJob } from "../util/api";
+import { addBackendJob, addDatascJob, addDesignJob, addFrontendJob, addFullstackJob, addJobDetails, addProductJob, deleteAddedBackendJob, deleteAddedDatascJob, deleteAddedDesignJob, deleteAddedFrontendJob, deleteAddedFullstackJob, deleteAddedJob, deleteAddedProductJob, deleteLoginData, getBackendJob, getDatascJob, getDesignJob, getFrontendJob, getFullstackJob, getJobDetails, getLoggedInData, getProductJob } from "../util/api";
 
 export default function RecruiterLogin() {
   const [username, setUsername] = useState("John Doe"); // Simulating a logged-in recruiter
@@ -89,6 +89,21 @@ export default function RecruiterLogin() {
     }));
   };
 
+
+
+
+
+  const recruiterUsername = users?.[0]?.username || ""; 
+  const recruiterPassword = users?.[0]?.password || "";
+
+
+
+    
+    const updatedFormData = {
+      ...formData,
+      username: recruiterUsername,
+      password: recruiterPassword,
+  };
   // Validate and submit form
   const handleJobSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission
@@ -112,7 +127,7 @@ export default function RecruiterLogin() {
     
     if (formData.jobtitle.toLowerCase() === "frontend") 
     {
-      const response = await addFrontendJob(formData);
+      const response = await addFrontendJob(updatedFormData);
        if (response) {
       alert("Job Added Successfully");
         fetchAllJobs();
@@ -133,7 +148,7 @@ export default function RecruiterLogin() {
 
     else if (formData.jobtitle.toLowerCase() === "backend") 
     {
-      const response = await addBackendJob(formData);
+      const response = await addBackendJob(updatedFormData);
        if (response) {
       alert("Job Added Successfully");
       fetchAllJobs();
@@ -153,7 +168,7 @@ export default function RecruiterLogin() {
 
     else if (formData.jobtitle.toLowerCase() === "fullstack") 
     {
-      const response = await addFullstackJob(formData);
+      const response = await addFullstackJob(updatedFormData);
        if (response) {
       alert("Job Added Successfully");
       fetchAllJobs();
@@ -172,7 +187,7 @@ export default function RecruiterLogin() {
 
     else if (formData.jobtitle.toLowerCase() === "ui/ux designer") 
       {
-        const response = await addDesignJob(formData);
+        const response = await addDesignJob(updatedFormData);
          if (response) {
         alert("Job Added Successfully");
         fetchAllJobs();
@@ -192,7 +207,7 @@ export default function RecruiterLogin() {
 
       else if (formData.jobtitle.toLowerCase() === "data scientist") 
         {
-          const response = await addDatascJob(formData);
+          const response = await addDatascJob(updatedFormData);
            if (response) {
           alert("Job Added Successfully");
           fetchAllJobs();
@@ -212,7 +227,7 @@ export default function RecruiterLogin() {
 
         else if (formData.jobtitle.toLowerCase() === "product manager") 
           {
-            const response = await addProductJob(formData);
+            const response = await addProductJob(updatedFormData);
              if (response) {
             alert("Job Added Successfully");
             fetchAllJobs();
@@ -269,24 +284,130 @@ export default function RecruiterLogin() {
       }
     };
 
-    const handleDelete = async (id, jobtitle) => {
+    const handleDelete = async (id, jobtitle, username,password) => {
       if (!id) {
         console.error("Error: Job ID is undefined.");
         return;
       }
       console.log("Deleting job with ID:", id);
       console.log("Deleting Job Title",jobtitle);
+      console.log("Deleting job with Username:", username);
+      console.log("Deleting Job Password",password);
+      console.log("Deleting job with Username:",recruiterUsername);
+      console.log("Deleting Job Password",recruiterPassword);
       if(jobtitle.toLowerCase() == "frontend")
       {
-          const response = await deleteAddedJob(id);
+        if(username == recruiterUsername && password == recruiterPassword)
+        {
+          const response = await deleteAddedFrontendJob(id);
           if (response) {
               fetchAllJobs();
           alert("Job Deleted Successfully");
         } else {
           alert("Failed to Delete Job");
         }
+        }
+        else
+        {
+          alert("Invalid User");
+        }
+          
       }
-       
+
+      if(jobtitle.toLowerCase() == "backend")
+        {
+          if(username == recruiterUsername && password == recruiterPassword)
+          {
+            const response = await deleteAddedBackendJob(id);
+            if (response) {
+                fetchAllJobs();
+            alert("Job Deleted Successfully");
+          } else {
+            alert("Failed to Delete Job");
+          }
+          }
+          else
+          {
+            alert("Invalid User");
+          }
+            
+        }
+
+        if(jobtitle.toLowerCase() == "fullstack")
+          {
+            if(username == recruiterUsername && password == recruiterPassword)
+            {
+              const response = await deleteAddedFullstackJob(id);
+              if (response) {
+                  fetchAllJobs();
+              alert("Job Deleted Successfully");
+            } else {
+              alert("Failed to Delete Job");
+            }
+            }
+            else
+            {
+              alert("Invalid User");
+            }
+              
+          }
+
+          if(jobtitle.toLowerCase() == "ui/ux designer")
+            {
+              if(username == recruiterUsername && password == recruiterPassword)
+              {
+                const response = await deleteAddedDesignJob(id);
+                if (response) {
+                    fetchAllJobs();
+                alert("Job Deleted Successfully");
+              } else {
+                alert("Failed to Delete Job");
+              }
+              }
+              else
+              {
+                alert("Invalid User");
+              }
+                
+            }
+
+            if(jobtitle.toLowerCase() == "data scientist")
+              {
+                if(username == recruiterUsername && password == recruiterPassword)
+                {
+                  const response = await deleteAddedDatascJob(id);
+                  if (response) {
+                      fetchAllJobs();
+                  alert("Job Deleted Successfully");
+                } else {
+                  alert("Failed to Delete Job");
+                }
+                }
+                else
+                {
+                  alert("Invalid User");
+                }
+                  
+              }
+
+              if(jobtitle.toLowerCase() == "product manager")
+                {
+                  if(username == recruiterUsername && password == recruiterPassword)
+                  {
+                    const response = await deleteAddedProductJob(id);
+                    if (response) {
+                        fetchAllJobs();
+                    alert("Job Deleted Successfully");
+                  } else {
+                    alert("Failed to Delete Job");
+                  }
+                  }
+                  else
+                  {
+                    alert("Invalid User");
+                  }
+                    
+                }
     };
     
     
@@ -389,7 +510,7 @@ export default function RecruiterLogin() {
                           style={{ marginTop: "20px", backgroundColor: "#0adaf1eb", color: "#ffffff" }}
                           onClick={() => {
                             if (job.id) {
-                              handleDelete(job.id, job.jobtitle);
+                              handleDelete(job.id, job.jobtitle,job.username,job.password);
                             } else {
                               console.error("Job ID is undefined:", job);
                             }

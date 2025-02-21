@@ -164,8 +164,33 @@ export async function getProductJob (){
 } 
 
 
-export async function deleteAddedJob(id){
+export async function deleteAddedFrontendJob(id){
     console.log("Making api call");
     return await makeApiCall(`/frontendjob/delete/${id}`,"DELETE");
+    
+} 
+export async function deleteAddedBackendJob(id){
+    console.log("Making api call");
+    return await makeApiCall(`/backendjob/delete/${id}`,"DELETE");
+    
+} 
+export async function deleteAddedFullstackJob(id){
+    console.log("Making api call");
+    return await makeApiCall(`/fullstackjob/delete/${id}`,"DELETE");
+    
+} 
+export async function deleteAddedDesignJob(id){
+    console.log("Making api call");
+    return await makeApiCall(`/designjob/delete/${id}`,"DELETE");
+    
+} 
+export async function deleteAddedDatascJob(id){
+    console.log("Making api call");
+    return await makeApiCall(`/datascjob/delete/${id}`,"DELETE");
+    
+} 
+export async function deleteAddedProductJob(id){
+    console.log("Making api call");
+    return await makeApiCall(`/productjob/delete/${id}`,"DELETE");
     
 } 
