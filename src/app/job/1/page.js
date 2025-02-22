@@ -89,7 +89,6 @@ export default function JobTable() {
   const handleSubmit = async(e) => {
     e.preventDefault();
     console.log("Application Submitted:", formData);
-
     const response = await addApplyJob(formData);
         console.log(response);
         if(response){
@@ -97,7 +96,6 @@ export default function JobTable() {
           router.push("/");
         }
         
-    
     handleCloseModal();
   };
 
